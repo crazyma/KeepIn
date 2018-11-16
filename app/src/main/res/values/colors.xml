@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorPrimary">#85b042</color>
+    <color name="colorPrimaryDark">#779e3b</color>
+    <color name="colorAccent">#418939</color>
+    <color name="silver">#d5e1df</color>
+    <color name="pale">#f7f9f9</color>
+    <color name="grey">#4a4a4a</color>
+
+    <color name="color1">#ed412d</color>
+    <color name="color2">#f2628e</color>
+    <color name="color3">#e6007f</color>
+    <color name="color4">#510098</color>
+    <color name="color5">#1bcef7</color>
+    <color name="color6">#00abee</color>
+    <color name="color7">#337bf7</color>
+    <color name="color8">#39579a</color>
+    <color name="color9">#28795c</color>
+    <color name="color10">#2da94f</color>
+    <color name="color11">#8ec500</color>
+    <color name="color12">#ccdd1e</color>
+    <color name="color13">#ff6c00</color>
+    <color name="color14">#ff9800</color>
+    <color name="color15">#fec003</color>
+    <color name="color16">#ffdf20</color>
+    <color name="color17">#7d481f</color>
+    <color name="color18">#c9c9c9</color>
+    <color name="color19">#77919e</color>
+    <color name="color20">#3a3a3a</color>
+
+    <integer-array name="androidcolors">
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color6</item>
+        <item>@color/color7</item>
+        <item>@color/color8</item>
+        <item>@color/color9</item>
+        <item>@color/color10</item>
+        <item>@color/color11</item>
+        <item>@color/color12</item>
+        <item>@color/color13</item>
+        <item>@color/color14</item>
+        <item>@color/color15</item>
+        <item>@color/color16</item>
+        <item>@color/color17</item>
+        <item>@color/color18</item>
+        <item>@color/color19</item>
+        <item>@color/color20</item>
+    </integer-array>
+
 </resources>
