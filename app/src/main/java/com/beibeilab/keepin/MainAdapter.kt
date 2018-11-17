@@ -17,7 +17,7 @@ class MainAdapter : RecyclerView.Adapter<ItemViewHolder>() {
     override fun getItemCount() = items?.size ?: 0
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(items!![position])
     }
 
 }

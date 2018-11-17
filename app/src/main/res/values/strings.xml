@@ -1,4 +1,37 @@
 <resources>
     <string name="app_name">KeepIn</string>
+
+    <string name="fragemnt_title_account_name">服務名稱</string>
+    <string name="hint_account">Account</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_user_name">User Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_remark">Remark</string>
+
+    <string name="generate_uppercase">大寫字母 A - Z</string>
+    <string name="generate_lowercase">小寫字母 a - z</string>
+    <string name="generate_number">數字 0 - 9</string>
+    <string name="generate_other">!@#$%^*()_</string>
+    <string name="generate">GENERATE</string>
+    <string name="generate_title">密碼產生器</string>
+    <string name="generate_title_2">確認使用密碼</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="cancel">CANCEL</string>
+
     <string name="action_settings">Settings</string>
+    <string name="action_save_account">SAVE</string>
+    <string name="action_edit_account">EDIT</string>
+
+    <string name="btn_create_password">MAKE</string>
+    <string name="btn_copy_password">COPY</string>
+    <string name="btn_add_more">新增其他資訊</string>
+
+    <string name="dialog_color_picker_title">選擇顏色</string>
+    <string name="dialog_title">提醒</string>
+    <string name="dialog_delete_message">你確定要刪除此帳密資料</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="warning_no_parameter">請至少填選一則資訊</string>
+    <string name="hint_password_length">預設長度: 8</string>
 </resources>
