@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/image_account"
@@ -59,8 +60,8 @@
         android:id="@+id/text_input_account"
         android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="80dp"
+        android:layout_marginEnd="16dp"
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +72,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_account"
-            android:text="@{accountViewModel.account}"
             android:textColor="@color/edit_text_color" />
     </android.support.design.widget.TextInputLayout>
 
@@ -79,19 +79,18 @@
         android:id="@+id/text_input_password"
         android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="80dp"
+        android:layout_marginEnd="16dp"
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_password">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
-            android:text="@{accountViewModel.password}"
             android:textColor="@color/edit_text_color" />
     </android.support.design.widget.TextInputLayout>
 
@@ -99,19 +98,18 @@
         android:id="@+id/text_input_user_name"
         android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="80dp"
+        android:layout_marginEnd="16dp"
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_user_name">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edit_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_user_name"
-            android:text="@{accountViewModel.userName}"
             android:textColor="@color/edit_text_color" />
     </android.support.design.widget.TextInputLayout>
 
@@ -119,54 +117,52 @@
         android:id="@+id/text_input_email"
         android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="80dp"
+        android:layout_marginEnd="16dp"
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_email">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_email"
-            android:text="@{accountViewModel.email}"
-            android:textColor="@color/edit_text_color"/>
+            android:textColor="@color/edit_text_color" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/text_input_remark"
         android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="80dp"
+        android:layout_marginEnd="16dp"
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_remark">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edit_remark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_remark"
-            android:text="@{accountViewModel.remark}"
-            android:textColor="@color/edit_text_color"/>
+            android:textColor="@color/edit_text_color" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btn_password"
         android:layout_width="48dp"
         android:layout_height="28dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/stroke_green_background"
-        android:text="@{accountViewModel.editable ? @string/btn_create_password : @string/btn_copy_password}"
+        android:text="@string/btn_create_password"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_input_password"/>
+        app:layout_constraintTop_toTopOf="@+id/text_input_password" />
 
 </android.support.constraint.ConstraintLayout>
