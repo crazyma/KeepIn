@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@{accountViewModel.serviceName}"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Github" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_github" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image_password"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="@+id/image_account"
+        app:layout_constraintTop_toBottomOf="@+id/image_user_name"
+        app:srcCompat="@drawable/icon_indicator_password" />
+
+    <TextView
+        android:id="@+id/text_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="@{accountViewModel.password}"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_password"
+        app:layout_constraintStart_toStartOf="@+id/text_title_password"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_password"
+        tools:text="**********" />
+
+    <TextView
+        android:id="@+id/text_title_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/hint_account"
+        android:textColor="?android:textColorHint"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/image_account"
+        app:layout_constraintTop_toTopOf="@+id/image_account" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image_account"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:srcCompat="@drawable/icon_indicator_account" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image_user_name"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="@+id/image_password"
+        app:layout_constraintTop_toBottomOf="@+id/image_account"
+        app:srcCompat="@drawable/icon_indicator_username" />
+
+    <TextView
+        android:id="@+id/text_user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp"
+        android:text="@{accountViewModel.userName}"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/text_title_user_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_user_name"
+        tools:text="Peter Parker" />
+
+    <TextView
+        android:id="@+id/text_title_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/hint_user_name"
+        android:textColor="?android:textColorHint"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/image_user_name"
+        app:layout_constraintTop_toTopOf="@+id/image_user_name" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image_email"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="@+id/image_user_name"
+        app:layout_constraintTop_toBottomOf="@+id/image_password"
+        app:srcCompat="@drawable/icon_indicator_email" />
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp"
+        android:text="@{accountViewModel.email}"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/text_title_email"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_email"
+        tools:text="spiderman@gmail.com" />
+
+    <TextView
+        android:id="@+id/text_title_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/hint_email"
+        android:textColor="?android:textColorHint"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/image_email"
+        app:layout_constraintTop_toTopOf="@+id/image_email" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image_remark"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="@+id/image_email"
+        app:layout_constraintTop_toBottomOf="@+id/image_email"
+        app:srcCompat="@drawable/icon_indicator_remark" />
+
+    <TextView
+        android:id="@+id/text_remark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@{accountViewModel.remark}"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/text_title_remark"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_remark"
+        tools:text="remark" />
+
+    <TextView
+        android:id="@+id/text_title_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/hint_remark"
+        android:textColor="?android:textColorHint"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/image_remark"
+        app:layout_constraintTop_toTopOf="@+id/image_remark" />
+
+    <TextView
+        android:id="@+id/text_title_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/hint_password"
+        android:textColor="?android:textColorHint"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/image_password"
+        app:layout_constraintTop_toTopOf="@+id/image_password" />
+
+    <TextView
+        android:id="@+id/text_account"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp"
+        android:text="@{accountViewModel.account}"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/text_title_account"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_account"
+        tools:text="my account" />
+
+    <Button
+        android:id="@+id/btn_password"
+        android:layout_width="48dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/stroke_green_background"
+        android:onClick="@{passwordClickListener::onPasswordButtonClick}"
+        android:text="@{accountViewModel.editable ? @string/btn_create_password : @string/btn_copy_password}"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_title_password" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/stroke_green_background"
+        android:text="@string/btn_add_more"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+</android.support.constraint.ConstraintLayout>
