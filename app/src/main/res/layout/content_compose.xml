@@ -6,7 +6,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/text_generate_title"
+        android:id="@+id/serviceNameEditText"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/btn_color_picker_confirm"
+        android:id="@+id/colorPickerImageView"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
@@ -32,7 +32,7 @@
         app:srcCompat="@drawable/icon_color_picker" />
 
     <View
-        android:id="@+id/view_divider1"
+        android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginEnd="0dp"
@@ -41,10 +41,10 @@
         android:background="@color/silver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_generate_title" />
+        app:layout_constraintTop_toBottomOf="@+id/serviceNameEditText" />
 
     <View
-        android:id="@+id/view_divider2"
+        android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginEnd="0dp"
@@ -54,55 +54,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_google" />
+        app:layout_constraintTop_toBottomOf="@+id/googleImageView" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_github"
+        android:id="@+id/githubImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginEnd="0dp"
         android:onClick="@{accountViewModel::oauthButtonClicked}"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/image_twitter"
-        app:layout_constraintTop_toTopOf="@+id/image_google"
+        app:layout_constraintStart_toEndOf="@+id/twitterImageView"
+        app:layout_constraintTop_toTopOf="@+id/googleImageView"
         app:srcCompat="@drawable/icon_github_pale" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_twitter"
+        android:id="@+id/twitterImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:onClick="@{accountViewModel::oauthButtonClicked}"
-        app:layout_constraintEnd_toStartOf="@+id/image_github"
+        app:layout_constraintEnd_toStartOf="@+id/githubImageView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/image_facebook"
-        app:layout_constraintTop_toTopOf="@+id/image_google"
+        app:layout_constraintStart_toEndOf="@+id/facebookImageView"
+        app:layout_constraintTop_toTopOf="@+id/googleImageView"
         app:srcCompat="@drawable/icon_twitter_pale"
         tools:layout_editor_absoluteX="162dp" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_facebook"
+        android:id="@+id/facebookImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:onClick="@{accountViewModel::oauthButtonClicked}"
-        app:layout_constraintEnd_toStartOf="@+id/image_twitter"
+        app:layout_constraintEnd_toStartOf="@+id/twitterImageView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/image_google"
-        app:layout_constraintTop_toTopOf="@+id/image_google"
+        app:layout_constraintStart_toEndOf="@+id/googleImageView"
+        app:layout_constraintTop_toTopOf="@+id/googleImageView"
         app:srcCompat="@drawable/icon_facebook_pale"
         tools:layout_editor_absoluteX="118dp" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_google"
+        android:id="@+id/googleImageView"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="16dp"
         android:onClick="@{accountViewModel::oauthButtonClicked}"
-        app:layout_constraintEnd_toStartOf="@+id/image_facebook"
+        app:layout_constraintEnd_toStartOf="@+id/facebookImageView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/view_divider1"
+        app:layout_constraintTop_toBottomOf="@+id/divider1"
         app:srcCompat="@drawable/icon_google_pale"/>
 
     <android.support.constraint.Guideline
@@ -126,6 +126,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
 </android.support.constraint.ConstraintLayout>

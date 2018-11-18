@@ -29,13 +29,13 @@
         app:srcCompat="@drawable/icon_github" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_password"
+        android:id="@+id/passwordImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_account"
-        app:layout_constraintTop_toBottomOf="@+id/image_user_name"
+        app:layout_constraintStart_toStartOf="@+id/accountImageView"
+        app:layout_constraintTop_toBottomOf="@+id/userNameImageView"
         app:srcCompat="@drawable/icon_indicator_password" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:text="@{accountViewModel.password}"
         android:textColor="@color/grey"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_password"
+        app:layout_constraintEnd_toStartOf="@+id/passwordButton"
         app:layout_constraintStart_toStartOf="@+id/text_title_password"
         app:layout_constraintTop_toBottomOf="@+id/text_title_password"
         tools:text="**********" />
@@ -61,11 +61,11 @@
         android:text="@string/hint_account"
         android:textColor="?android:textColorHint"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/image_account"
-        app:layout_constraintTop_toTopOf="@+id/image_account" />
+        app:layout_constraintStart_toEndOf="@+id/accountImageView"
+        app:layout_constraintTop_toTopOf="@+id/accountImageView" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_account"
+        android:id="@+id/accountImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
@@ -76,13 +76,13 @@
         app:srcCompat="@drawable/icon_indicator_account" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_user_name"
+        android:id="@+id/userNameImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_password"
-        app:layout_constraintTop_toBottomOf="@+id/image_account"
+        app:layout_constraintStart_toStartOf="@+id/passwordImageView"
+        app:layout_constraintTop_toBottomOf="@+id/accountImageView"
         app:srcCompat="@drawable/icon_indicator_username" />
 
     <TextView
@@ -106,17 +106,17 @@
         android:text="@string/hint_user_name"
         android:textColor="?android:textColorHint"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/image_user_name"
-        app:layout_constraintTop_toTopOf="@+id/image_user_name" />
+        app:layout_constraintStart_toEndOf="@+id/userNameImageView"
+        app:layout_constraintTop_toTopOf="@+id/userNameImageView" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_email"
+        android:id="@+id/emailImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_user_name"
-        app:layout_constraintTop_toBottomOf="@+id/image_password"
+        app:layout_constraintStart_toStartOf="@+id/userNameImageView"
+        app:layout_constraintTop_toBottomOf="@+id/passwordImageView"
         app:srcCompat="@drawable/icon_indicator_email" />
 
     <TextView
@@ -140,18 +140,18 @@
         android:text="@string/hint_email"
         android:textColor="?android:textColorHint"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/image_email"
-        app:layout_constraintTop_toTopOf="@+id/image_email" />
+        app:layout_constraintStart_toEndOf="@+id/emailImageView"
+        app:layout_constraintTop_toTopOf="@+id/emailImageView" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_remark"
+        android:id="@+id/remarkImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_email"
-        app:layout_constraintTop_toBottomOf="@+id/image_email"
+        app:layout_constraintStart_toStartOf="@+id/emailImageView"
+        app:layout_constraintTop_toBottomOf="@+id/emailImageView"
         app:srcCompat="@drawable/icon_indicator_remark" />
 
     <TextView
@@ -174,8 +174,8 @@
         android:text="@string/hint_remark"
         android:textColor="?android:textColorHint"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/image_remark"
-        app:layout_constraintTop_toTopOf="@+id/image_remark" />
+        app:layout_constraintStart_toEndOf="@+id/remarkImageView"
+        app:layout_constraintTop_toTopOf="@+id/remarkImageView" />
 
     <TextView
         android:id="@+id/text_title_password"
@@ -185,8 +185,8 @@
         android:text="@string/hint_password"
         android:textColor="?android:textColorHint"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/image_password"
-        app:layout_constraintTop_toTopOf="@+id/image_password" />
+        app:layout_constraintStart_toEndOf="@+id/passwordImageView"
+        app:layout_constraintTop_toTopOf="@+id/passwordImageView" />
 
     <TextView
         android:id="@+id/text_account"
@@ -202,7 +202,7 @@
         tools:text="my account" />
 
     <Button
-        android:id="@+id/btn_password"
+        android:id="@+id/passwordButton"
         android:layout_width="48dp"
         android:layout_height="28dp"
         android:layout_marginTop="0dp"

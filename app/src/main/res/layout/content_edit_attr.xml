@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_account"
+        android:id="@+id/accountImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
@@ -16,48 +16,48 @@
         app:srcCompat="@drawable/icon_indicator_account" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_password"
+        android:id="@+id/passwordImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_account"
-        app:layout_constraintTop_toBottomOf="@+id/image_user_name"
+        app:layout_constraintStart_toStartOf="@+id/accountImageView"
+        app:layout_constraintTop_toBottomOf="@+id/userNameImageView"
         app:srcCompat="@drawable/icon_indicator_password" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_user_name"
+        android:id="@+id/userNameImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_account"
-        app:layout_constraintTop_toBottomOf="@+id/image_account"
+        app:layout_constraintStart_toStartOf="@+id/accountImageView"
+        app:layout_constraintTop_toBottomOf="@+id/accountImageView"
         app:srcCompat="@drawable/icon_indicator_username" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_email"
+        android:id="@+id/emailImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_account"
-        app:layout_constraintTop_toBottomOf="@+id/image_password"
+        app:layout_constraintStart_toStartOf="@+id/accountImageView"
+        app:layout_constraintTop_toBottomOf="@+id/passwordImageView"
         app:srcCompat="@drawable/icon_indicator_email" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image_remark"
+        android:id="@+id/remarkImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
-        app:layout_constraintStart_toStartOf="@+id/image_account"
-        app:layout_constraintTop_toBottomOf="@+id/image_email"
+        app:layout_constraintStart_toStartOf="@+id/accountImageView"
+        app:layout_constraintTop_toBottomOf="@+id/emailImageView"
         app:srcCompat="@drawable/icon_indicator_remark" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_account"
+        android:id="@+id/accountInputLayout"
         android:layout_width="match_parent"
         android:layout_height="56sp"
         android:layout_marginStart="80dp"
@@ -65,10 +65,10 @@
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_account">
+        app:layout_constraintTop_toTopOf="@+id/accountImageView">
 
         <AutoCompleteTextView
-            android:id="@+id/edit_account"
+            android:id="@+id/accountEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_account"
@@ -76,7 +76,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_password"
+        android:id="@+id/passwordInputLayout"
         android:layout_width="match_parent"
         android:layout_height="56sp"
         android:layout_marginStart="80dp"
@@ -84,10 +84,10 @@
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_password">
+        app:layout_constraintTop_toTopOf="@+id/passwordImageView">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_password"
+            android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
@@ -95,7 +95,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_user_name"
+        android:id="@+id/userNameInputLayout"
         android:layout_width="match_parent"
         android:layout_height="56sp"
         android:layout_marginStart="80dp"
@@ -103,10 +103,10 @@
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_user_name">
+        app:layout_constraintTop_toTopOf="@+id/userNameImageView">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_user_name"
+            android:id="@+id/userNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_user_name"
@@ -114,7 +114,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_email"
+        android:id="@+id/emailInputLayout"
         android:layout_width="match_parent"
         android:layout_height="56sp"
         android:layout_marginStart="80dp"
@@ -122,10 +122,10 @@
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_email">
+        app:layout_constraintTop_toTopOf="@+id/emailImageView">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_email"
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_email"
@@ -133,7 +133,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_remark"
+        android:id="@+id/remarkInputLayout"
         android:layout_width="match_parent"
         android:layout_height="56sp"
         android:layout_marginStart="80dp"
@@ -141,10 +141,10 @@
         app:hintTextAppearance="@style/TextInputHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_remark">
+        app:layout_constraintTop_toTopOf="@+id/remarkImageView">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_remark"
+            android:id="@+id/remarkEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_remark"
@@ -152,7 +152,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_password"
+        android:id="@+id/passwordButton"
         android:layout_width="48dp"
         android:layout_height="28dp"
         android:layout_marginTop="12dp"
@@ -163,6 +163,6 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_input_password" />
+        app:layout_constraintTop_toTopOf="@+id/passwordInputLayout" />
 
 </android.support.constraint.ConstraintLayout>
