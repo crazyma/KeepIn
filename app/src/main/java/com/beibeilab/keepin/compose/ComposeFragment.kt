@@ -1,18 +1,21 @@
 package com.beibeilab.keepin.compose
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
+import android.support.v4.content.ContextCompat
 import android.view.*
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.parseText
+import com.beibeilab.keepin.util.Utils
 import kotlinx.android.synthetic.main.content_compose.*
 import kotlinx.android.synthetic.main.content_edit_attr.*
 
 class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
 
     private lateinit var viewModel: ComposeViewModel
+    private val dp = Resources.getSystem().displayMetrics.density
 
     private val serviceButtonClickListener = View.OnClickListener {
         it!!.apply {
@@ -36,6 +39,7 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupColorPickerButton()
         setupServiceButton()
     }
 
@@ -64,8 +68,16 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
         val password = passwordEditText.parseText()
         val email = emailEditText.parseText()
         val remark = remarkEditText.parseText()
+        val selectedServiceIndex = getSelectedService()
 
         return listOf(serviceName, accountName, userName, password, email, remark)
+    }
+
+    private fun setupColorPickerButton() {
+        colorPickerImageView.background = Utils.createOvalDrawable(
+            ContextCompat.getColor(context!!, R.color.colorPrimary),
+            (30 * dp).toInt()
+        )
     }
 
     private fun setupServiceButton() {
@@ -73,5 +85,13 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
         twitterImageView.setOnClickListener(serviceButtonClickListener)
         facebookImageView.setOnClickListener(serviceButtonClickListener)
         githubImageView.setOnClickListener(serviceButtonClickListener)
+    }
+
+    private fun getSelectedService() = when {
+        googleImageView.isSelected -> 0
+        facebookImageView.isSelected -> 1
+        twitterImageView.isSelected -> 2
+        githubImageView.isSelected -> 3
+        else -> -1
     }
 }
