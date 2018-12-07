@@ -2,8 +2,8 @@ package com.beibeilab.keepin.compose
 
 import android.content.res.Resources
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import android.view.*
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.extension.obtainViewModel

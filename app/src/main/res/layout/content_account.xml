@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Github" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageView"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_github" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/passwordImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -64,7 +64,7 @@
         app:layout_constraintStart_toEndOf="@+id/accountImageView"
         app:layout_constraintTop_toTopOf="@+id/accountImageView" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/accountImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -75,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:srcCompat="@drawable/icon_indicator_account" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/userNameImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toEndOf="@+id/userNameImageView"
         app:layout_constraintTop_toTopOf="@+id/userNameImageView" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/emailImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -143,7 +143,7 @@
         app:layout_constraintStart_toEndOf="@+id/emailImageView"
         app:layout_constraintTop_toTopOf="@+id/emailImageView" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/remarkImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -231,4 +231,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
