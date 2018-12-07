@@ -14,6 +14,15 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
 
     private lateinit var viewModel: ComposeViewModel
 
+    private val serviceButtonClickListener = View.OnClickListener {
+        it!!.apply {
+            googleImageView.isSelected = googleImageView == this && !googleImageView.isSelected
+            facebookImageView.isSelected = facebookImageView == this && !facebookImageView.isSelected
+            twitterImageView.isSelected = twitterImageView == this && !twitterImageView.isSelected
+            githubImageView.isSelected = githubImageView == this && !githubImageView.isSelected
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -23,6 +32,11 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_compose, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupServiceButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -52,5 +66,12 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
         val remark = remarkEditText.parseText()
 
         return listOf(serviceName, accountName, userName, password, email, remark)
+    }
+
+    private fun setupServiceButton() {
+        googleImageView.setOnClickListener(serviceButtonClickListener)
+        twitterImageView.setOnClickListener(serviceButtonClickListener)
+        facebookImageView.setOnClickListener(serviceButtonClickListener)
+        githubImageView.setOnClickListener(serviceButtonClickListener)
     }
 }
