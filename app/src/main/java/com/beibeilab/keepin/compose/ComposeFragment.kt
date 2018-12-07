@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import android.view.*
 import com.beibeilab.keepin.R
+import com.beibeilab.keepin.database.AccountDatabase
+import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.parseText
 import com.beibeilab.keepin.util.Utils
@@ -30,7 +32,9 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel = obtainViewModel(ComposeViewModel::class.java)
+        viewModel = obtainViewModel(ComposeViewModel::class.java).apply {
+            accountDatabase = AccountDatabase.getInstance(context!!)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,16 +65,20 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
         viewModel.commitNewAccount(collectAccountInfo())
     }
 
-    override fun collectAccountInfo(): List<String> {
+    override fun collectAccountInfo(): AccountEntity {
         val serviceName = serviceNameEditText.parseText()
         val accountName = accountEditText.parseText()
         val userName = userNameEditText.parseText()
         val password = passwordEditText.parseText()
         val email = emailEditText.parseText()
         val remark = remarkEditText.parseText()
-        val selectedServiceIndex = getSelectedService()
+        val oauth = getSelectedService()
 
-        return listOf(serviceName, accountName, userName, password, email, remark)
+        return AccountEntity(serviceName, oauth, accountName, password, 0).apply {
+            this.userName = userName
+            this.email = email
+            this.remark = remark
+        }
     }
 
     private fun setupColorPickerButton() {
@@ -88,10 +96,10 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
     }
 
     private fun getSelectedService() = when {
-        googleImageView.isSelected -> 0
-        facebookImageView.isSelected -> 1
-        twitterImageView.isSelected -> 2
-        githubImageView.isSelected -> 3
-        else -> -1
+        googleImageView.isSelected -> "google"
+        facebookImageView.isSelected -> "facebook"
+        twitterImageView.isSelected -> "twitter"
+        githubImageView.isSelected -> "github"
+        else -> ""
     }
 }

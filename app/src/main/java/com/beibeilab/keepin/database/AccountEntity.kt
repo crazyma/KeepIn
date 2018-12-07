@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class AccountEntity(
-    @ColumnInfo(name = "service_name") var serviceName: String?,
-    @ColumnInfo(name = "oauth") var oauth: String?,
-    @ColumnInfo(name = "account") var account: String?,
-    @ColumnInfo(name = "pwd1") var pwd1: String?,
+    @ColumnInfo(name = "service_name") var serviceName: String,
+    @ColumnInfo(name = "oauth") var oauth: String,
+    @ColumnInfo(name = "account") var account: String,
+    @ColumnInfo(name = "pwd1") var pwd1: String,
     @ColumnInfo(name = "color") var color: Int
 ) {
     @PrimaryKey(autoGenerate = true)
