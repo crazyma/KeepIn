@@ -1,17 +1,20 @@
 package com.beibeilab.keepin.database
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 @Entity
+@Parcelize
 data class AccountEntity(
     @ColumnInfo(name = "service_name") var serviceName: String,
     @ColumnInfo(name = "oauth") var oauth: String,
     @ColumnInfo(name = "account") var account: String,
     @ColumnInfo(name = "pwd1") var pwd1: String,
     @ColumnInfo(name = "color") var color: Int
-) {
+) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var uid: Long = 0
     @ColumnInfo(name = "pwd2")

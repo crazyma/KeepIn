@@ -7,11 +7,17 @@ import com.beibeilab.keepin.model.AccountInfo
 
 class MainAdapter : RecyclerView.Adapter<ItemViewHolder>() {
 
+    interface OnItemClickListner {
+        fun itemOnClicked(position: Int, account: AccountEntity)
+    }
+
     var items: List<AccountEntity>? = null
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+    var onItemClickListner: OnItemClickListner? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ItemViewHolder.create(parent)
@@ -20,6 +26,9 @@ class MainAdapter : RecyclerView.Adapter<ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(items!![position])
+        holder.itemView.setOnClickListener {
+            onItemClickListner?.itemOnClicked(position, items!![position])
+        }
     }
 
 }
