@@ -11,6 +11,7 @@ import com.android.colorpicker.ColorPickerSwatch
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
+import com.beibeilab.keepin.extension.obtainActivityViewModel
 import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.parseText
 import com.beibeilab.keepin.password.PasswordGenerateFragment
@@ -37,7 +38,7 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerS
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel = obtainViewModel(ComposeViewModel::class.java).apply {
+        viewModel = obtainActivityViewModel(ComposeViewModel::class.java).apply {
             accountDatabase = AccountDatabase.getInstance(context!!)
         }
     }
@@ -114,6 +115,7 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerS
     private fun setupViewModel() {
         viewModel.apply {
             color.observe(viewLifecycleOwner, Observer { setupColorPickerButton(it) })
+            generatedPassword.observe(viewLifecycleOwner, Observer { passwordEditText.setText(it!!) })
         }
 
         viewModel.color.value = ContextCompat.getColor(context!!, R.color.colorDefault)

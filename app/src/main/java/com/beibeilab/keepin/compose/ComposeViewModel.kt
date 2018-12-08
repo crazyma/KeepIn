@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
+import com.beibeilab.keepin.util.SingleLiveEvent
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 
@@ -12,6 +13,7 @@ class ComposeViewModel : ViewModel() {
 
     var accountDatabase: AccountDatabase? = null
     val color = MutableLiveData<Int>()
+    val generatedPassword = SingleLiveEvent<String>()
 
     fun commitNewAccount(accountEntity: AccountEntity) {
         accountDatabase?.apply {

@@ -8,7 +8,10 @@ import android.widget.CheckedTextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.beibeilab.keepin.R
+import com.beibeilab.keepin.compose.ComposeViewModel
+import com.beibeilab.keepin.extension.obtainActivityViewModel
 import com.beibeilab.keepin.extension.obtainViewModel
+import kotlinx.android.synthetic.main.content_account.*
 import kotlinx.android.synthetic.main.fragment_password_generate.*
 
 class PasswordGenerateFragment : DialogFragment() {
@@ -18,6 +21,7 @@ class PasswordGenerateFragment : DialogFragment() {
     }
 
     private lateinit var viewModel: PasswordViewModel
+    private lateinit var activityViewModel: ComposeViewModel
 
     private val checkedTextViewClickListener = View.OnClickListener {
         (it as CheckedTextView).apply {
@@ -34,6 +38,7 @@ class PasswordGenerateFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = obtainViewModel(PasswordViewModel::class.java)
+        activityViewModel = obtainActivityViewModel(ComposeViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -66,6 +71,7 @@ class PasswordGenerateFragment : DialogFragment() {
             viewModel.apply {
                 when (isNextStep.value) {
                     true -> {
+                        activityViewModel.generatedPassword.value = generatedPasswordTextView.text.toString()
                         dismiss()
                     }
                     else -> {
