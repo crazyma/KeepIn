@@ -28,6 +28,7 @@
     <color name="color18">#c9c9c9</color>
     <color name="color19">#77919e</color>
     <color name="color20">#3a3a3a</color>
+    <color name="colorDefault">@color/color10</color>
 
     <integer-array name="androidcolors">
         <item>@color/color1</item>

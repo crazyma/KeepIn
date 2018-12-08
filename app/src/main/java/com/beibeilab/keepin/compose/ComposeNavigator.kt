@@ -4,4 +4,6 @@ interface ComposeNavigator {
 
     fun onCommitButtonClicked()
 
+    fun onColorPickerButtonClicked()
+
 }

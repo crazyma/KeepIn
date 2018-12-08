@@ -5,6 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import android.view.*
+import androidx.lifecycle.Observer
+import com.android.colorpicker.ColorPickerDialog
+import com.android.colorpicker.ColorPickerSwatch
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
@@ -13,8 +16,9 @@ import com.beibeilab.keepin.extension.parseText
 import com.beibeilab.keepin.util.Utils
 import kotlinx.android.synthetic.main.content_compose.*
 import kotlinx.android.synthetic.main.content_edit_attr.*
+import java.lang.RuntimeException
 
-class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
+class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerSwatch.OnColorSelectedListener {
 
     private lateinit var viewModel: ComposeViewModel
     private val dp = Resources.getSystem().displayMetrics.density
@@ -43,7 +47,7 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupColorPickerButton()
+        setupViewModel()
         setupServiceButton()
     }
 
@@ -65,6 +69,30 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
         viewModel.commitNewAccount(collectAccountInfo())
     }
 
+    override fun onColorPickerButtonClicked() {
+        val colors = context!!.resources.getIntArray(R.array.androidcolors)
+        val selectedColor = viewModel.color.value
+
+        if (selectedColor != null) {
+            val colorPickerDialog = ColorPickerDialog()
+            colorPickerDialog.initialize(
+                R.string.dialog_color_picker_title,
+                colors,
+                selectedColor,
+                4, colors.size
+            )
+
+            colorPickerDialog.show(fragmentManager!!, "color_picker")
+            colorPickerDialog.setOnColorSelectedListener(this)
+        } else {
+            throw RuntimeException("The default color is not set")
+        }
+    }
+
+    override fun onColorSelected(color: Int) {
+        viewModel.color.value = color
+    }
+
     override fun collectAccountInfo(): AccountEntity {
         val serviceName = serviceNameEditText.parseText()
         val accountName = accountEditText.parseText()
@@ -81,11 +109,24 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView {
         }
     }
 
-    private fun setupColorPickerButton() {
-        colorPickerImageView.background = Utils.createOvalDrawable(
-            ContextCompat.getColor(context!!, R.color.colorPrimary),
-            (30 * dp).toInt()
-        )
+    private fun setupViewModel() {
+        viewModel.apply {
+            color.observe(viewLifecycleOwner, Observer { setupColorPickerButton(it) })
+        }
+
+        viewModel.color.value = ContextCompat.getColor(context!!, R.color.colorDefault)
+    }
+
+    private fun setupColorPickerButton(color: Int?) {
+        colorPickerImageView.apply {
+            background = Utils.createOvalDrawable(
+                color ?: ContextCompat.getColor(context!!, R.color.colorDefault),
+                (30 * dp).toInt()
+            )
+            setOnClickListener {
+                onColorPickerButtonClicked()
+            }
+        }
     }
 
     private fun setupServiceButton() {

@@ -25,7 +25,6 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@color/colorPrimary"
-        android:onClick="@{callback::onPickerButtonClicked}"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
