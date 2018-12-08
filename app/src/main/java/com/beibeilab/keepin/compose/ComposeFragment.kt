@@ -13,6 +13,7 @@ import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.parseText
+import com.beibeilab.keepin.password.PasswordGenerateFragment
 import com.beibeilab.keepin.util.Utils
 import kotlinx.android.synthetic.main.content_compose.*
 import kotlinx.android.synthetic.main.content_edit_attr.*
@@ -49,6 +50,7 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerS
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         setupServiceButton()
+        setupPasswordButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -115,6 +117,23 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerS
         }
 
         viewModel.color.value = ContextCompat.getColor(context!!, R.color.colorDefault)
+    }
+
+    private fun setupPasswordButton() {
+        passwordButton.setOnClickListener { _ ->
+            activity!!.supportFragmentManager.apply {
+                val ft = beginTransaction()
+                findFragmentByTag("dialog")?.let {
+                    ft.remove(it)
+                }
+                ft.addToBackStack(null)
+
+                PasswordGenerateFragment.newInstance().apply {
+                    setTargetFragment(this@ComposeFragment, 0)
+                    show(ft, "dialog")
+                }
+            }
+        }
     }
 
     private fun setupColorPickerButton(color: Int?) {
