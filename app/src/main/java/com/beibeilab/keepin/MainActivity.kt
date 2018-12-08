@@ -1,14 +1,12 @@
 package com.beibeilab.keepin
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
-import com.beibeilab.keepin.account.AccountFragment
 import com.beibeilab.keepin.compose.ComposeActivity
-import com.beibeilab.keepin.extension.replaceFragment
 import com.beibeilab.keepin.extension.setupFragment
+import com.beibeilab.keepin.frontpage.MainFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 

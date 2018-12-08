@@ -7,7 +7,7 @@
     android:tag="@{itemModel.position}">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/image_avatar"
+        android:id="@+id/imageAvatar"
         android:layout_width="@dimen/main_list_avatar_width"
         android:layout_height="@dimen/main_list_avatar_width"
         android:layout_marginStart="16dp"
@@ -30,12 +30,12 @@
         android:layout_marginBottom="8dp"
         android:text="@{itemModel.textName}"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/image_oauth_icon"
-        app:layout_constraintStart_toEndOf="@+id/image_avatar"
+        app:layout_constraintEnd_toStartOf="@+id/imageOauthIcon"
+        app:layout_constraintStart_toEndOf="@+id/imageAvatar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/image_oauth_icon"
+        android:id="@+id/imageOauthIcon"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginStart="0dp"
@@ -44,7 +44,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_account_name"
+        app:layout_constraintStart_toEndOf="@+id/accountNameTextView"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />
 </androidx.constraintlayout.widget.ConstraintLayout>

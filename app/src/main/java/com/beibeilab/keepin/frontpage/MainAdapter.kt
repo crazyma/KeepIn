@@ -1,18 +1,20 @@
-package com.beibeilab.keepin
+package com.beibeilab.keepin.frontpage
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.model.AccountInfo
 
 class MainAdapter : RecyclerView.Adapter<ItemViewHolder>() {
 
-    var items: List<AccountInfo>? = null
+    var items: List<AccountEntity>? = null
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ItemViewHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ItemViewHolder.create(parent)
 
     override fun getItemCount() = items?.size ?: 0
 
