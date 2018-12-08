@@ -27,4 +27,8 @@ data class AccountEntity(
     var email: String? = null
     @ColumnInfo(name = "remark")
     var remark: String? = null
+
+    fun isLessInfo() =
+        account.isEmpty() && userName.isNullOrEmpty() && pwd1.isEmpty() &&
+                email.isNullOrEmpty() && remark.isNullOrEmpty()
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/serviceNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -19,7 +19,7 @@
         tools:text="Github" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageView"
+        android:id="@+id/oauthImageView"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="16dp"
@@ -39,7 +39,7 @@
         app:srcCompat="@drawable/icon_indicator_password" />
 
     <TextView
-        android:id="@+id/text_password"
+        android:id="@+id/passwordTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -48,12 +48,12 @@
         android:textColor="@color/grey"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/passwordButton"
-        app:layout_constraintStart_toStartOf="@+id/text_title_password"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_password"
+        app:layout_constraintStart_toStartOf="@+id/passwordTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTitleTextView"
         tools:text="**********" />
 
     <TextView
-        android:id="@+id/text_title_account"
+        android:id="@+id/accountTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -72,7 +72,7 @@
         android:layout_marginTop="16dp"
         android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/serviceNameTextView"
         app:srcCompat="@drawable/icon_indicator_account" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -86,7 +86,7 @@
         app:srcCompat="@drawable/icon_indicator_username" />
 
     <TextView
-        android:id="@+id/text_user_name"
+        android:id="@+id/userNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
@@ -94,12 +94,12 @@
         android:text="@{accountViewModel.userName}"
         android:textColor="@color/grey"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/text_title_user_name"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_user_name"
+        app:layout_constraintStart_toStartOf="@+id/userNameTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTitleTextView"
         tools:text="Peter Parker" />
 
     <TextView
-        android:id="@+id/text_title_user_name"
+        android:id="@+id/userNameTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -120,7 +120,7 @@
         app:srcCompat="@drawable/icon_indicator_email" />
 
     <TextView
-        android:id="@+id/text_email"
+        android:id="@+id/emailTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
@@ -128,12 +128,12 @@
         android:text="@{accountViewModel.email}"
         android:textColor="@color/grey"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/text_title_email"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_email"
+        app:layout_constraintStart_toStartOf="@+id/emailTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/emailTitleTextView"
         tools:text="spiderman@gmail.com" />
 
     <TextView
-        android:id="@+id/text_title_email"
+        android:id="@+id/emailTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -155,19 +155,19 @@
         app:srcCompat="@drawable/icon_indicator_remark" />
 
     <TextView
-        android:id="@+id/text_remark"
+        android:id="@+id/remarkTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@{accountViewModel.remark}"
         android:textColor="@color/grey"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/text_title_remark"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_remark"
+        app:layout_constraintStart_toStartOf="@+id/remarkTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/remarkTitleTextView"
         tools:text="remark" />
 
     <TextView
-        android:id="@+id/text_title_remark"
+        android:id="@+id/remarkTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -178,7 +178,7 @@
         app:layout_constraintTop_toTopOf="@+id/remarkImageView" />
 
     <TextView
-        android:id="@+id/text_title_password"
+        android:id="@+id/passwordTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -189,7 +189,7 @@
         app:layout_constraintTop_toTopOf="@+id/passwordImageView" />
 
     <TextView
-        android:id="@+id/text_account"
+        android:id="@+id/accountTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
@@ -197,8 +197,8 @@
         android:text="@{accountViewModel.account}"
         android:textColor="@color/grey"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/text_title_account"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_account"
+        app:layout_constraintStart_toStartOf="@+id/accountTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/accountTitleTextView"
         tools:text="my account" />
 
     <Button
@@ -208,16 +208,15 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/stroke_green_background"
-        android:onClick="@{passwordClickListener::onPasswordButtonClick}"
-        android:text="@{accountViewModel.editable ? @string/btn_create_password : @string/btn_copy_password}"
+        android:text="@string/btn_create_password"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_title_password" />
+        app:layout_constraintTop_toTopOf="@+id/passwordTitleTextView" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addMoreButton"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -227,8 +226,9 @@
         android:text="@string/btn_add_more"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/serviceNameTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
