@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckedTextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.compose.ComposeViewModel
 import com.beibeilab.keepin.extension.obtainActivityViewModel
 import com.beibeilab.keepin.extension.obtainViewModel
-import kotlinx.android.synthetic.main.content_account.*
 import kotlinx.android.synthetic.main.fragment_password_generate.*
 
 class PasswordGenerateFragment : DialogFragment() {
@@ -85,6 +86,10 @@ class PasswordGenerateFragment : DialogFragment() {
         }
 
         cancelButton.setOnClickListener { dismiss() }
+
+        refreshImageView.setOnClickListener {
+            viewModel.generatePassword()
+        }
     }
 
     private fun modifyLayout(isNextStep: Boolean) {
@@ -100,5 +105,15 @@ class PasswordGenerateFragment : DialogFragment() {
 
         generatedPasswordTextView.visibility = secondStepVisibility
         refreshImageView.visibility = secondStepVisibility
+
+        if (isNextStep) changeLayoutSize()
+    }
+
+    private fun changeLayoutSize() {
+        val constraintLayout = confirmButton.parent as ConstraintLayout
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+        constraintSet.connect(confirmButton.id, ConstraintSet.TOP, R.id.refreshImageView, ConstraintSet.BOTTOM, 16)
+        constraintSet.applyTo(constraintLayout)
     }
 }
