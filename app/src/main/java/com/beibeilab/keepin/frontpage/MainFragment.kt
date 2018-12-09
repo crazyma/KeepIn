@@ -72,8 +72,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
             adapter = MainAdapter().apply {
                 onItemClickListner = this@MainFragment
             }
-            layoutManager = LinearLayoutManager(
-                context!!, RecyclerView.VERTICAL, false)
+            layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
         }
     }
 

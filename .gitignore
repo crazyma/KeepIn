@@ -9,7 +9,7 @@
 /build
 /captures
 .externalNativeBuild
-
+*AccountSample.kt
 # Created by https://www.gitignore.io/api/androidstudio
 # Edit at https://www.gitignore.io/?templates=androidstudio
 
