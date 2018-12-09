@@ -18,6 +18,9 @@
     <string name="confirm">CONFIRM</string>
     <string name="cancel">CANCEL</string>
 
+    <string name="fingerprint_title">身份確認</string>
+    <string name="fingerprint_subtitle">請使用指紋辨識</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_save_account">SAVE</string>
     <string name="action_edit_account">EDIT</string>
