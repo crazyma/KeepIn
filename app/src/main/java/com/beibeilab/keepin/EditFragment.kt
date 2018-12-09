@@ -1,12 +1,13 @@
 package com.beibeilab.keepin
 
 import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.beibeilab.keepin.account.AccountFragment.Companion.RESULT_EDIT_ACCOUNT
 import com.beibeilab.keepin.compose.ComposeFragment
 import com.beibeilab.keepin.database.AccountEntity
-import com.beibeilab.keepin.extension.obtainActivityViewModel
 import com.beibeilab.keepin.extension.parseText
 import kotlinx.android.synthetic.main.content_compose.*
 import kotlinx.android.synthetic.main.content_edit_attr.*
@@ -36,9 +37,12 @@ class EditFragment : ComposeFragment() {
     override fun setupViewModel() {
         super.setupViewModel()
 
-        viewModel.jobDone.observe(viewLifecycleOwner, Observer {
-            activity!!.apply{
-                setResult(RESULT_OK)
+        viewModel.updateDone.observe(viewLifecycleOwner, Observer {
+            activity!!.apply {
+                val intent = Intent().apply {
+                    putExtra(RESULT_EDIT_ACCOUNT, givenAccountEntity)
+                }
+                setResult(RESULT_OK, intent)
                 finish()
             }
         })

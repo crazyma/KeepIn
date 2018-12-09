@@ -1,6 +1,8 @@
 package com.beibeilab.keepin.account
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -16,7 +18,8 @@ class AccountFragment : Fragment(), AccountNavigator {
     companion object {
 
         const val ARGS_ACCOUNT = "ARGS_ACCOUNT"
-        const val RESULT_CODE_EDIT = 19
+        const val RESULT_EDIT_ACCOUNT = "RESULT_EDIT_ACCOUNT"
+        const val REQUEST_CODE_EDIT = 19
 
         fun newInstance(accountEntity: AccountEntity) = AccountFragment().apply {
             arguments = Bundle().apply {
@@ -51,6 +54,14 @@ class AccountFragment : Fragment(), AccountNavigator {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_account, menu)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_EDIT && resultCode == RESULT_OK) {
+            accountEntity = data!!.getParcelableExtra(RESULT_EDIT_ACCOUNT)
+            setupAccountInfo()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -153,7 +164,7 @@ class AccountFragment : Fragment(), AccountNavigator {
         }
     }
 
-    private fun copyToClipboard(str: String){
+    private fun copyToClipboard(str: String) {
         val clipboard = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
         val clip = android.content.ClipData.newPlainText("text label", str)
         clipboard.primaryClip = clip
@@ -164,7 +175,7 @@ class AccountFragment : Fragment(), AccountNavigator {
     private fun jump2Edit() {
         startActivityForResult(
             ComposeActivity.getIntent(context!!, accountEntity),
-            RESULT_CODE_EDIT
+            REQUEST_CODE_EDIT
         )
     }
 

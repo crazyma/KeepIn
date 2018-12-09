@@ -15,7 +15,8 @@ class ComposeViewModel : ViewModel() {
     var accountDatabase: AccountDatabase? = null
     val color = MutableLiveData<Int>()
     val generatedPassword = SingleLiveEvent<String>()
-    val jobDone = SingleLiveEvent<Void>()
+    val insertDone = SingleLiveEvent<Void>()
+    val updateDone = SingleLiveEvent<Void>()
 
     fun commitNewAccount(accountEntity: AccountEntity) {
         accountDatabase?.apply {
@@ -26,14 +27,14 @@ class ComposeViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Log.d("badu", "insert done")
-                    jobDone.call()
+                    insertDone.call()
                 }, {
                     Log.d("badu", "insert fail")
                 })
         }
     }
 
-    fun updateAccount(accountEntity: AccountEntity){
+    fun updateAccount(accountEntity: AccountEntity) {
         accountDatabase?.apply {
 
             Completable.fromRunnable {
@@ -42,7 +43,7 @@ class ComposeViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Log.d("badu", "update done")
-                    jobDone.call()
+                    updateDone.call()
                 }, {
                     Log.d("badu", "update fail")
                 })

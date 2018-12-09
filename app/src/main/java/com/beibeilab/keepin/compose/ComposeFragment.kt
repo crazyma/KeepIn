@@ -115,7 +115,7 @@ open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPi
         viewModel.apply {
             color.observe(viewLifecycleOwner, Observer { setupColorPickerButton(it) })
             generatedPassword.observe(viewLifecycleOwner, Observer { passwordEditText.setText(it!!) })
-            jobDone.observe(viewLifecycleOwner, Observer { activity!!.finish() })
+            insertDone.observe(viewLifecycleOwner, Observer { activity!!.finish() })
         }
 
         viewModel.color.value = ContextCompat.getColor(context!!, R.color.colorDefault)
