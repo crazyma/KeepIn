@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.beibeilab.keepin.MainActivity
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.account.AccountFragment
@@ -63,11 +64,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
             adapter = MainAdapter().apply {
                 onItemClickListner = this@MainFragment
             }
-            layoutManager = LinearLayoutManager(
-                context!!,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+            layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
         }
     }
 
