@@ -8,6 +8,7 @@ class PasswordViewModel : ViewModel() {
     var ruleArray: BooleanArray = booleanArrayOf(false, false, false, false)
     val isNextStep = MutableLiveData<Boolean>()
     var password = MutableLiveData<String>()
+    var length = 8
     private var generator :PasswordGenerator? = null
 
     fun setRules(index: Int, checked: Boolean) {
@@ -20,7 +21,7 @@ class PasswordViewModel : ViewModel() {
 
         if (generator == null) {
             generator = PasswordGenerator(
-                8,
+                length,
                 ruleArray
             )
         }

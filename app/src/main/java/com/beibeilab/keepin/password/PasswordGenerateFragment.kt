@@ -77,6 +77,7 @@ class PasswordGenerateFragment : DialogFragment() {
                     }
                     else -> {
                         if (checkRulesExist()) {
+                            length = lengthEditText.text.toString().toInt()
                             generatePassword()
                             isNextStep.value = true
                         }
