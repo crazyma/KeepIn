@@ -7,6 +7,7 @@ import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.util.SingleLiveEvent
 import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class ComposeViewModel : ViewModel() {
@@ -14,6 +15,7 @@ class ComposeViewModel : ViewModel() {
     var accountDatabase: AccountDatabase? = null
     val color = MutableLiveData<Int>()
     val generatedPassword = SingleLiveEvent<String>()
+    val jobDone = SingleLiveEvent<Void>()
 
     fun commitNewAccount(accountEntity: AccountEntity) {
         accountDatabase?.apply {
@@ -21,10 +23,28 @@ class ComposeViewModel : ViewModel() {
             Completable.fromRunnable {
                 getAccountDao().insert(accountEntity)
             }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Log.d("badu", "insert done")
+                    jobDone.call()
                 }, {
                     Log.d("badu", "insert fail")
+                })
+        }
+    }
+
+    fun updateAccount(accountEntity: AccountEntity){
+        accountDatabase?.apply {
+
+            Completable.fromRunnable {
+                getAccountDao().update(accountEntity)
+            }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d("badu", "update done")
+                    jobDone.call()
+                }, {
+                    Log.d("badu", "update fail")
                 })
         }
     }

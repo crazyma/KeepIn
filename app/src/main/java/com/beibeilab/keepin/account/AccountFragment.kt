@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.beibeilab.keepin.MainActivity
 import com.beibeilab.keepin.R
+import com.beibeilab.keepin.compose.ComposeActivity
 import com.beibeilab.keepin.database.AccountEntity
 import kotlinx.android.synthetic.main.content_account.*
 
@@ -15,6 +16,7 @@ class AccountFragment : Fragment(), AccountNavigator {
     companion object {
 
         const val ARGS_ACCOUNT = "ARGS_ACCOUNT"
+        const val RESULT_CODE_EDIT = 19
 
         fun newInstance(accountEntity: AccountEntity) = AccountFragment().apply {
             arguments = Bundle().apply {
@@ -160,7 +162,10 @@ class AccountFragment : Fragment(), AccountNavigator {
     }
 
     private fun jump2Edit() {
-
+        startActivityForResult(
+            ComposeActivity.getIntent(context!!, accountEntity),
+            RESULT_CODE_EDIT
+        )
     }
 
 }

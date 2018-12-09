@@ -12,7 +12,6 @@ import com.beibeilab.keepin.R
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainActivityViewModel
-import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.parseText
 import com.beibeilab.keepin.password.PasswordGenerateFragment
 import com.beibeilab.keepin.util.Utils
@@ -20,9 +19,9 @@ import kotlinx.android.synthetic.main.content_compose.*
 import kotlinx.android.synthetic.main.content_edit_attr.*
 import java.lang.RuntimeException
 
-class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerSwatch.OnColorSelectedListener {
+open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerSwatch.OnColorSelectedListener {
 
-    private lateinit var viewModel: ComposeViewModel
+    protected lateinit var viewModel: ComposeViewModel
     private val dp = Resources.getSystem().displayMetrics.density
 
     private val serviceButtonClickListener = View.OnClickListener {
@@ -112,10 +111,11 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerS
         }
     }
 
-    private fun setupViewModel() {
+    protected open fun setupViewModel() {
         viewModel.apply {
             color.observe(viewLifecycleOwner, Observer { setupColorPickerButton(it) })
             generatedPassword.observe(viewLifecycleOwner, Observer { passwordEditText.setText(it!!) })
+            jobDone.observe(viewLifecycleOwner, Observer { activity!!.finish() })
         }
 
         viewModel.color.value = ContextCompat.getColor(context!!, R.color.colorDefault)
@@ -138,7 +138,7 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerS
         }
     }
 
-    private fun setupColorPickerButton(color: Int?) {
+    protected fun setupColorPickerButton(color: Int?) {
         colorPickerImageView.apply {
             background = Utils.createOvalDrawable(
                 color ?: ContextCompat.getColor(context!!, R.color.colorDefault),
@@ -157,7 +157,7 @@ class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerS
         githubImageView.setOnClickListener(serviceButtonClickListener)
     }
 
-    private fun getSelectedService() = when {
+    protected fun getSelectedService() = when {
         googleImageView.isSelected -> "google"
         facebookImageView.isSelected -> "facebook"
         twitterImageView.isSelected -> "twitter"
