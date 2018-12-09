@@ -20,8 +20,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/oauthImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/account_oauth_width"
+        android:layout_height="@dimen/account_oauth_width"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"

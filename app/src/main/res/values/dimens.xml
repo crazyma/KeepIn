@@ -7,4 +7,5 @@
     <dimen name="popup_height">400dp</dimen>
     <dimen name="popup_content_width">240dp</dimen>
     <dimen name="color_picker_button_width">30dp</dimen>
+    <dimen name="account_oauth_width">30dp</dimen>
 </resources>
