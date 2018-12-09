@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
 
     private lateinit var viewModel: MainViewModel
-    private var fingerprintDialog: AlertDialog? = null
     private var selectedAccount: AccountEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
