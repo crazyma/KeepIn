@@ -18,8 +18,14 @@ class ComposeViewModel : ViewModel() {
     val insertDone = SingleLiveEvent<Void>()
     val updateDone = SingleLiveEvent<Void>()
 
+    fun initColor(c: Int){
+        color.value = c
+    }
+
     fun commitNewAccount(accountEntity: AccountEntity) {
         accountDatabase?.apply {
+
+            accountEntity.color = color.value!!
 
             Completable.fromRunnable {
                 getAccountDao().insert(accountEntity)
@@ -36,6 +42,8 @@ class ComposeViewModel : ViewModel() {
 
     fun updateAccount(accountEntity: AccountEntity) {
         accountDatabase?.apply {
+
+            accountEntity.color = color.value!!
 
             Completable.fromRunnable {
                 getAccountDao().update(accountEntity)

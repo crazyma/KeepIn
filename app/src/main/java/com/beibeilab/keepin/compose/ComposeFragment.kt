@@ -118,7 +118,7 @@ open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPi
             insertDone.observe(viewLifecycleOwner, Observer { activity!!.finish() })
         }
 
-        viewModel.color.value = ContextCompat.getColor(context!!, R.color.colorDefault)
+        viewModel.initColor(ContextCompat.getColor(context!!, R.color.colorDefault))
     }
 
     private fun setupPasswordButton() {
