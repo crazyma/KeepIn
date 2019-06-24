@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(ComposeActivity.getIntent(this))
         }
 
-        setupFragment(R.id.fragment_content, MainFragment())
+        if(savedInstanceState == null) {
+            setupFragment(R.id.fragment_content, MainFragment())
+        }
     }
 
 

@@ -24,10 +24,13 @@ import kotlinx.android.synthetic.main.fragment_main.*
 /**
  * A placeholder fragment containing a simple view.
  */
-class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
+class MainFragment : Fragment(), MainAdapter.OnItemClickListener {
 
     private lateinit var viewModel: MainViewModel
+
     private var selectedAccount: AccountEntity? = null
+
+    private var mainAdapter: MainAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +70,15 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
     }
 
     private fun setupRecyclerView() {
+
+        val mainAdapter = this.mainAdapter ?: MainAdapter().apply {
+            onItemClickListener = this@MainFragment
+        }.also {
+            this.mainAdapter = it
+        }
+
         recyclerView.apply {
-            adapter = MainAdapter().apply {
-                onItemClickListner = this@MainFragment
-            }
+            adapter = mainAdapter
             layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
         }
     }
