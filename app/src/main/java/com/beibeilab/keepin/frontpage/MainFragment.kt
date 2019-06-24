@@ -2,6 +2,7 @@ package com.beibeilab.keepin.frontpage
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 /**
  * A placeholder fragment containing a simple view.
  */
-class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
+class MainFragment : Fragment(), MainAdapter.OnItemClickListener {
 
     private lateinit var viewModel: MainViewModel
 
@@ -42,6 +43,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.v("badu","main fragmnet view created : $this | bundle : $savedInstanceState")
         setupRecyclerView()
         setupViewModel()
     }
@@ -49,6 +51,11 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).showFAB()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.w("badu","main fragment on destroy view")
     }
 
     override fun itemOnClicked(position: Int, account: AccountEntity) {
@@ -62,7 +69,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListner {
     private fun setupRecyclerView() {
         recyclerView.apply {
             adapter = MainAdapter().apply {
-                onItemClickListner = this@MainFragment
+                onItemClickListener = this@MainFragment
             }
             layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
         }
