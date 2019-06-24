@@ -1,6 +1,7 @@
 package com.beibeilab.keepin.password
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,7 +78,7 @@ class PasswordGenerateFragment : DialogFragment() {
                     }
                     else -> {
                         if (checkRulesExist()) {
-                            length = lengthEditText.text.toString().toInt()
+                            length = getLength(lengthEditText.text.toString())
                             generatePassword()
                             isNextStep.value = true
                         }
@@ -90,6 +91,21 @@ class PasswordGenerateFragment : DialogFragment() {
 
         refreshImageView.setOnClickListener {
             viewModel.generatePassword()
+        }
+    }
+
+    private fun getLength(string: String?): Int {
+        val regux = Regex("^[0-9]*\$")
+
+        return if (string.isNullOrEmpty() || !regux.matches(string)) {
+            8
+        } else {
+            val length = string.toInt()
+            if (length <= 4 || length > 20) {
+                8
+            } else {
+                length
+            }
         }
     }
 
