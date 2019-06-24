@@ -37,13 +37,15 @@ class ComposeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_compose)
         setSupportActionBar(toolbar)
 
-        val fragment = intent.getIntExtra(ARGS_MODE, ARGS_MODE_COMPOSE).let {
-            when(it){
-                ARGS_MODE_EDIT -> EditFragment.newInstance(intent.extras!!)
-                else -> ComposeFragment()
+        if (savedInstanceState == null) {
+            val fragment = intent.getIntExtra(ARGS_MODE, ARGS_MODE_COMPOSE).let {
+                when (it) {
+                    ARGS_MODE_EDIT -> EditFragment.newInstance(intent.extras!!)
+                    else -> ComposeFragment()
+                }
             }
+            setupFragment(R.id.contentLayout, fragment)
         }
-        setupFragment(R.id.contentLayout, fragment)
     }
 
 }
