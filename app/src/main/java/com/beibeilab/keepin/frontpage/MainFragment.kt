@@ -1,15 +1,14 @@
 package com.beibeilab.keepin.frontpage
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.hardware.biometrics.BiometricPrompt
 import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.os.CancellationSignal
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.beibeilab.keepin.MainActivity
@@ -20,6 +19,7 @@ import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.replaceFragment
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.util.concurrent.Executors
 
 /**
  * A placeholder fragment containing a simple view.
@@ -88,24 +88,44 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener {
     }
 
     private fun showBiometricPromt(){
-        val executor = context!!.mainExecutor
-        val cancelListener = DialogInterface.OnClickListener { _, _ ->
+        val executor = Executors.newSingleThreadExecutor()
 
-        }
-
-        resources.getString(R.string.fingerprint_title)
-
-        val biometricPrompt = BiometricPrompt.Builder(context!!)
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(resources.getString(R.string.fingerprint_title))
             .setSubtitle(resources.getString(R.string.fingerprint_subtitle))
-            .setNegativeButton(resources.getString(R.string.cancel), executor, cancelListener)
+            .setNegativeButtonText(resources.getString(R.string.cancel))
             .build()
 
-        biometricPrompt.authenticate(CancellationSignal(), executor, object:BiometricPrompt.AuthenticationCallback(){
-            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
-                jumpt2AccountFragment()
-            }
-        })
+        val biometricPrompt = BiometricPrompt(activity!!, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    jumpt2AccountFragment()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                }
+
+                override fun onAuthenticationError(errorCode: Int,
+                                                   errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    when(errorCode){
+                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
+                            Log.d("badu","cancel clicked")
+                        }
+                        BiometricPrompt.ERROR_NO_BIOMETRICS -> {
+                            Toast.makeText(context!!, "no biometrics", Toast.LENGTH_LONG).show()
+                        }
+                        else-> {
+                            Log.e("badu","error: $errorCode")
+                        }
+                    }
+                }
+            })
+
+        biometricPrompt.authenticate(promptInfo)
     }
 
     private fun jumpt2AccountFragment(){
