@@ -2,7 +2,6 @@ package com.beibeilab.keepin.frontpage
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.Observer
@@ -21,6 +20,11 @@ import kotlinx.android.synthetic.main.fragment_main.*
  * A placeholder fragment containing a simple view.
  */
 class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFragment.Callback {
+
+    companion object {
+        private const val FRAGMENT_TAG_BACKUP = "FRAGMENT_TAG_BACKUP"
+        private const val FRAGMENT_TAG_BACKUP_EMPTY = "FRAGMENT_TAG_BACKUP_EMPTY"
+    }
 
     private lateinit var viewModel: MainViewModel
     private var mainAdapter: MainAdapter? = null
@@ -57,37 +61,49 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         inflater.inflate(R.menu.menu_main, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_backup -> {
-                AlertDialogFragment.Builder(context!!)
-                    .setTitle("title")
-                    .setMessage("message")
-                    .setPositiveButton("ok")
-                    .show(childFragmentManager, "backup")
-            }
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_backup -> {
+            viewModel.handleBackupRequest()
+
+            true
         }
-        return super.onOptionsItemSelected(item)
+        else -> super.onOptionsItemSelected(item)
     }
+
 
     override fun onDialogAction(fragment: AlertDialogFragment, action: Int, extras: Bundle?) {
         when (fragment.tag) {
-            "backup" -> {
+            FRAGMENT_TAG_BACKUP -> {
                 when (action) {
                     AlertDialogFragment.ACTION_POSITIVE -> {
-                        Log.d("badu", "XDD")
+//                        viewModel.getBackup()
                     }
                 }
             }
         }
     }
 
+
     override fun itemOnClicked(position: Int, account: AccountEntity) {
         (activity as MainActivity).replaceFragment(R.id.fragment_content, AccountFragment.newInstance(account))
     }
 
     private fun setupViewModel() {
-        viewModel.accountList.observe(viewLifecycleOwner, Observer { populateList(it) })
+        viewModel.apply {
+
+            accountList.observe(viewLifecycleOwner, Observer { populateList(it) })
+
+            showDialog.observe(viewLifecycleOwner, Observer { isDataEmpty ->
+                if (isDataEmpty) {
+                    showBackupEmptyDialog()
+                } else {
+                    showBackupDialog()
+                }
+            })
+
+            loadAccountList()
+        }
+
     }
 
     private fun setupRecyclerView() {
@@ -106,5 +122,20 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
 
     private fun populateList(list: List<AccountEntity>) {
         (recyclerView.adapter as MainAdapter).items = list
+    }
+
+    private fun showBackupDialog() {
+        AlertDialogFragment.Builder(context!!)
+            .setTitle(R.string.dialog_warning)
+            .setPositiveButton(R.string.dialog_confirm)
+            .show(childFragmentManager, FRAGMENT_TAG_BACKUP)
+    }
+
+    private fun showBackupEmptyDialog() {
+        AlertDialogFragment.Builder(context!!)
+            .setTitle(R.string.dialog_warning)
+            .setMessage(R.string.dialog_backup_empty_message)
+            .setPositiveButton(R.string.dialog_confirm)
+            .show(childFragmentManager, FRAGMENT_TAG_BACKUP_EMPTY)
     }
 }
