@@ -4,9 +4,15 @@ import android.content.Context
 import android.os.Environment
 import java.io.File
 
-class FileCoreUtils {
+//  TODO by Batu: check free size
+class FileCore(
+    val context: Context?
+) {
 
-    fun getInternalDir(context: Context, dirName: String? = null): File {
+    fun getInternalDir(dirName: String? = null): File {
+        if (context == null)
+            throw java.lang.NullPointerException("You have to set Context to FileCore to access internal storage")
+
         return if (dirName.isNullOrEmpty()) {
             context.filesDir
         } else {
@@ -14,7 +20,10 @@ class FileCoreUtils {
         }
     }
 
-    fun getInternalCacheDir(context: Context, dirName: String? = null): File {
+    fun getInternalCacheDir(dirName: String? = null): File {
+        if (context == null)
+            throw java.lang.NullPointerException("You have to set Context to FileCore to access internal storage")
+
         return if (dirName.isNullOrEmpty()) {
             context.cacheDir
         } else {
@@ -23,10 +32,12 @@ class FileCoreUtils {
     }
 
     fun getPrivateExternalDir(
-        context: Context,
         environment: String? = null,
         dirName: String? = null
     ): File {
+
+        if (context == null)
+            throw java.lang.NullPointerException("You have to set Context to FileCore to access private external storage")
 
         val root = context.getExternalFilesDir(environment)
             ?: throw NullPointerException("got Null Pointer when calling context.getExternalFilesDir")
