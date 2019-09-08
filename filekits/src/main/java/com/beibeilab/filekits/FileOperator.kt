@@ -97,7 +97,8 @@ class FileOperator {
      */
     @Synchronized
     @Throws(IOException::class)
-    protected fun writeByteViaOutputStream(file: File, bytes: ByteArray) {
+    fun writeByteViaOutputStream(file: File, bytes: ByteArray) {
+        //  //  TODO by Batu: try to refactor by KTX
         val outputStream = BufferedOutputStream(FileOutputStream(file))
         outputStream.write(bytes)
         outputStream.close()

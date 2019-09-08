@@ -18,6 +18,7 @@ import com.beibeilab.keepin.account.AccountFragment
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainViewModel
+import com.beibeilab.keepin.extension.obtainViewModel2
 import com.beibeilab.keepin.extension.replaceFragment
 import com.beibeilab.uikits.alertdialog.AlertDialogFragment
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -44,7 +45,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel = obtainViewModel(MainViewModel::class.java).apply {
+        viewModel = obtainViewModel2(MainViewModel::class.java).apply {
             accountDatabase = AccountDatabase.getInstance(context!!)
         }
     }
@@ -189,7 +190,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
     }
 
     private fun backup(){
-
+        viewModel.handleBackupRequest()
     }
 
     private fun showBackupDialog() {
