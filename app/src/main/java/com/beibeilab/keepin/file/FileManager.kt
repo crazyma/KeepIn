@@ -1,7 +1,9 @@
 package com.beibeilab.keepin.file
 
+import android.content.ContentValues
 import android.graphics.Bitmap
 import android.os.Environment
+import android.provider.MediaStore
 import com.beibeilab.filekits.FileCore
 import com.beibeilab.filekits.FileOperator
 import java.io.File
@@ -27,6 +29,10 @@ class FileManager(
         FileOutputStream(file.path).use {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, it)
         }
+    }
+
+    fun getUri(){
+
     }
 
     private fun getBackupDir(): File {

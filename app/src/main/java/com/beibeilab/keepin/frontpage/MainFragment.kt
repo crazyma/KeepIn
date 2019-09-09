@@ -1,13 +1,16 @@
 package com.beibeilab.keepin.frontpage
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -23,6 +26,7 @@ import com.beibeilab.keepin.extension.obtainViewModel2
 import com.beibeilab.keepin.extension.replaceFragment
 import com.beibeilab.uikits.alertdialog.AlertDialogFragment
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.io.FileOutputStream
 
 /**
  * A placeholder fragment containing a simple view.
@@ -231,23 +235,57 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
 
     private fun jumpToSetting() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            setData(Uri.parse("package:com.beibeilab.keepin"))
+            data = Uri.parse("package:com.beibeilab.keepin")
         }
 
         startActivity(intent)
     }
 
+    //  TODO by Batu: save image is good. Right now should try to save files
     private fun test() {
 
         Handler().postDelayed({
 
             val size = resources.displayMetrics.density * 100
             viewModel.testSingleEvent.observe(viewLifecycleOwner, Observer {
-                imageView.setImageBitmap(it)
+
+                val s = MediaStore.Images.Media.insertImage(
+                    context!!.contentResolver,
+                    it,
+                    "title_image",
+                    "this is a test image file"
+                )
+
+                Log.d("badu", "done done done done done  $s")
+
+//                val contentValues = ContentValues()
+//                contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, "test_img_jpg")
+//                contentValues.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
+//                contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+//                val uri = context!!.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)!!
+//
+//                Log.d("badu", "uri : ${uri.path}")
+//
+//                MediaStore.Images.Media.insertImage(
+//                    context!!.contentResolver,
+//                    it,
+//                    "title_image",
+//                    "this is a test image file"
+//                )
+//
+//                val  contentResolver = context!!.contentResolver
+//                val fileDescriptor = contentResolver.openFileDescriptor(uri, "r")!!
+//
+//                //接下来就可以读写了
+//                val ostream = FileOutputStream(fileDescriptor.fileDescriptor)//写
+//
+//                it.compress(Bitmap.CompressFormat.JPEG, 90, ostream)
+//
+//                Log.i("badu", "done done done done done done done ")
             })
             viewModel.test(size)
 
 
-        }, 1000)
+        }, 2000)
     }
 }

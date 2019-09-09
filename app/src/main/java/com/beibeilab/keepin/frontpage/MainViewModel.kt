@@ -76,8 +76,9 @@ class MainViewModel(
         }
         canvas.drawPath(path, paint)
 
-        fileManager.testImage(bitmap)
+//        fileManager.testImage(bitmap)
 
+        testSingleEvent.value = bitmap
     }
 
 }
