@@ -3,8 +3,10 @@ package com.beibeilab.keepin.frontpage
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.view.*
 import androidx.core.content.ContextCompat
@@ -17,7 +19,6 @@ import com.beibeilab.keepin.R
 import com.beibeilab.keepin.account.AccountFragment
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
-import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.obtainViewModel2
 import com.beibeilab.keepin.extension.replaceFragment
 import com.beibeilab.uikits.alertdialog.AlertDialogFragment
@@ -66,6 +67,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).showFAB()
+        test()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -114,7 +116,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                 }
             }
             DIALOG_TAG_ASK_TO_SETTING -> {
-                if(action == AlertDialogFragment.ACTION_POSITIVE) {
+                if (action == AlertDialogFragment.ACTION_POSITIVE) {
                     jumpToSetting()
                 }
             }
@@ -165,7 +167,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         (recyclerView.adapter as MainAdapter).items = list
     }
 
-    private fun askPermissionToBackup(){
+    private fun askPermissionToBackup() {
         val context = context!!
 
         val checkWritePermission = ContextCompat.checkSelfPermission(
@@ -189,7 +191,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         }
     }
 
-    private fun backup(){
+    private fun backup() {
         viewModel.handleBackupRequest()
     }
 
@@ -208,7 +210,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             .show(childFragmentManager, DIALOG_TAG_BACKUP_EMPTY)
     }
 
-    private fun showRequestWritePermissionRationale(){
+    private fun showRequestWritePermissionRationale() {
         AlertDialogFragment.Builder(context!!)
             .setTitle("Excuse Me")
             .setMessage("We need storage writing permission")
@@ -217,7 +219,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             .show(childFragmentManager, DIALOG_TAG_ASK_PERMISSION)
     }
 
-    private fun handleWritePermissionDenied(){
+    private fun handleWritePermissionDenied() {
         AlertDialogFragment.Builder(context!!)
             .setTitle("No Permission")
             .setMessage("You have to approve wirte permission in setting")
@@ -227,11 +229,25 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
 
     }
 
-    private fun jumpToSetting(){
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply{
+    private fun jumpToSetting() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
             setData(Uri.parse("package:com.beibeilab.keepin"))
         }
 
         startActivity(intent)
+    }
+
+    private fun test() {
+
+        Handler().postDelayed({
+
+            val size = resources.displayMetrics.density * 100
+            viewModel.testSingleEvent.observe(viewLifecycleOwner, Observer {
+                imageView.setImageBitmap(it)
+            })
+            viewModel.test(size)
+
+
+        }, 1000)
     }
 }
