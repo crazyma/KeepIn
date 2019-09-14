@@ -111,14 +111,14 @@ class FileOperator {
      */
     @Synchronized
     @Throws(IOException::class)
-    protected fun readFileViaInputStream(file: File): String {
+    fun readFileViaInputStream(file: File): String {
         val data = StringBuilder()
         val reader: BufferedReader
 
         reader = BufferedReader(InputStreamReader(FileInputStream(file), "utf-8"))
-        var line: String
+        var line: String?
 
-        while (reader.readLine().also {  line = it} != null) {
+        while (reader.readLine().also { line = it} != null) {
             data.append(line)
         }
 

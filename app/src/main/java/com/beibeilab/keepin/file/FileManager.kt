@@ -23,6 +23,16 @@ class FileManager(
         fileOperator.writeByteViaOutputStream(file, byteArray)
     }
 
+    @Throws(IOException::class)
+    fun restore(): String? {
+        val file = File(getBackupDir(), FILE_BACKUP)
+        return if (file.isFile && file.exists() && file.canRead()) {
+            fileOperator.readFileViaInputStream(file)
+        } else {
+            null
+        }
+    }
+
     private fun getBackupDir(): File {
         return fileCore.getPublicExternalDir(Environment.DIRECTORY_DOWNLOADS, DIR_APP_FOLDER)
             .apply { if (!exists()) mkdir() }

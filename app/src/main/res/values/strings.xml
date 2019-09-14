@@ -20,6 +20,7 @@
     <string name="cancel">CANCEL</string>
 
     <string name="action_backup">Backup</string>
+    <string name="action_restore">Restore</string>
     <string name="action_save_account">SAVE</string>
     <string name="action_edit_account">EDIT</string>
 

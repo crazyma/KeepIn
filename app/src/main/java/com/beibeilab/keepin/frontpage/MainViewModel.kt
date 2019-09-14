@@ -48,6 +48,17 @@ class MainViewModel(
         }
     }
 
+    fun handleRestoreRequest() {
+        viewModelScope.launch {
+            try {
+                val data = fileManager.restore()
+                Log.i("badu", "data : $data")
+            } catch (e: Exception){
+                Log.e("badu", "$e")
+            }
+        }
+    }
+
     private suspend fun backup(accountList: List<AccountEntity>) =
         withContext(Dispatchers.IO) {
             try {

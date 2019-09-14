@@ -31,9 +31,11 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
     companion object {
 
         private const val PERMISSION_REQUEST_CODE_WRITE_PERMISSION = 0x0
+        private const val PERMISSION_REQUEST_CODE_READ_PERMISSION = 0x1
 
         private const val DIALOG_TAG_BACKUP_EMPTY = "DIALOG_TAG_BACKUP_EMPTY"
-        private const val DIALOG_TAG_ASK_PERMISSION = "DIALOG_TAG_ASK_PERMISSION"
+        private const val DIALOG_TAG_ASK_WRITE_PERMISSION = "DIALOG_TAG_ASK_WRITE_PERMISSION"
+        private const val DIALOG_TAG_ASK_READ_PERMISSION = "DIALOG_TAG_ASK_READ_PERMISSION"
         private const val DIALOG_TAG_ASK_TO_SETTING = "DIALOG_TAG_ASK_TO_SETTING"
     }
 
@@ -78,6 +80,12 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             askPermissionToBackup()
             true
         }
+
+        R.id.action_restore -> {
+            askPermissionToRestore()
+            true
+        }
+
         else -> super.onOptionsItemSelected(item)
     }
 
@@ -98,13 +106,24 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                     }
                 }
             }
+            PERMISSION_REQUEST_CODE_READ_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    restore()
+                } else {
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        showRequestReadPermissionRationale()
+                    } else {
+                        handleReadPermissionDenied()
+                    }
+                }
+            }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 
     override fun onDialogAction(fragment: AlertDialogFragment, action: Int, extras: Bundle?) {
         when (fragment.tag) {
-            DIALOG_TAG_ASK_PERMISSION -> {
+            DIALOG_TAG_ASK_WRITE_PERMISSION -> {
                 if (action == AlertDialogFragment.ACTION_POSITIVE) {
                     // ActivityCompat.requestPermissions()
                     requestPermissions(
@@ -113,6 +132,17 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                     )
                 }
             }
+
+            DIALOG_TAG_ASK_READ_PERMISSION -> {
+                if (action == AlertDialogFragment.ACTION_POSITIVE) {
+                    // ActivityCompat.requestPermissions()
+                    requestPermissions(
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        PERMISSION_REQUEST_CODE_READ_PERMISSION
+                    )
+                }
+            }
+
             DIALOG_TAG_ASK_TO_SETTING -> {
                 if (action == AlertDialogFragment.ACTION_POSITIVE) {
                     jumpToSetting()
@@ -187,8 +217,36 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         }
     }
 
+    private fun askPermissionToRestore() {
+        val context = context!!
+
+        val checkReadPermission = ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        when (checkReadPermission) {
+            PackageManager.PERMISSION_GRANTED -> {
+                restore()
+            }
+            else -> {
+
+                //  ActivityCompat.shouldShowRequestPermissionRationale()
+                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    showRequestReadPermissionRationale()
+                } else {
+                    handleReadPermissionDenied()
+                }
+            }
+        }
+    }
+
     private fun backup() {
         viewModel.handleBackupRequest()
+    }
+
+    private fun restore() {
+        viewModel.handleRestoreRequest()
     }
 
     private fun showBackupEmptyDialog() {
@@ -205,17 +263,34 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             .setMessage("We need storage writing permission")
             .setPositiveButton("OK")
             .setNegativeButton("No")
-            .show(childFragmentManager, DIALOG_TAG_ASK_PERMISSION)
+            .show(childFragmentManager, DIALOG_TAG_ASK_WRITE_PERMISSION)
+    }
+
+    private fun showRequestReadPermissionRationale() {
+        AlertDialogFragment.Builder(context!!)
+            .setTitle("Excuse Me")
+            .setMessage("We need storage reading permission")
+            .setPositiveButton("OK")
+            .setNegativeButton("No")
+            .show(childFragmentManager, DIALOG_TAG_ASK_READ_PERMISSION)
     }
 
     private fun handleWritePermissionDenied() {
         AlertDialogFragment.Builder(context!!)
             .setTitle("No Permission")
-            .setMessage("You have to approve wirte permission in setting")
+            .setMessage("You have to approve write permission in setting")
             .setPositiveButton("OK")
             .setNegativeButton("No")
             .show(childFragmentManager, DIALOG_TAG_ASK_TO_SETTING)
+    }
 
+    private fun handleReadPermissionDenied() {
+        AlertDialogFragment.Builder(context!!)
+            .setTitle("No Permission")
+            .setMessage("You have to approve read permission in setting")
+            .setPositiveButton("OK")
+            .setNegativeButton("No")
+            .show(childFragmentManager, DIALOG_TAG_ASK_TO_SETTING)
     }
 
     private fun jumpToSetting() {
