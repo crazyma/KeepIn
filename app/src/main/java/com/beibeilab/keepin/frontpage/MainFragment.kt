@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.*
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,7 +18,6 @@ import com.beibeilab.keepin.R
 import com.beibeilab.keepin.account.AccountFragment
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
-import com.beibeilab.keepin.extension.obtainViewModel
 import com.beibeilab.keepin.extension.obtainViewModel2
 import com.beibeilab.keepin.extension.replaceFragment
 import com.beibeilab.uikits.alertdialog.AlertDialogFragment
@@ -32,7 +32,6 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
 
         private const val PERMISSION_REQUEST_CODE_WRITE_PERMISSION = 0x0
 
-        private const val DIALOG_TAG_BACKUP = "DIALOG_TAG_BACKUP"
         private const val DIALOG_TAG_BACKUP_EMPTY = "DIALOG_TAG_BACKUP_EMPTY"
         private const val DIALOG_TAG_ASK_PERMISSION = "DIALOG_TAG_ASK_PERMISSION"
         private const val DIALOG_TAG_ASK_TO_SETTING = "DIALOG_TAG_ASK_TO_SETTING"
@@ -61,6 +60,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupViewModel()
+        viewModel.loadAccountList()
     }
 
     override fun onResume() {
@@ -114,7 +114,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                 }
             }
             DIALOG_TAG_ASK_TO_SETTING -> {
-                if(action == AlertDialogFragment.ACTION_POSITIVE) {
+                if (action == AlertDialogFragment.ACTION_POSITIVE) {
                     jumpToSetting()
                 }
             }
@@ -131,20 +131,18 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
 
     private fun setupViewModel() {
         viewModel.apply {
-
             accountList.observe(viewLifecycleOwner, Observer { populateList(it) })
 
-            showDialog.observe(viewLifecycleOwner, Observer { isDataEmpty ->
-                if (isDataEmpty) {
-                    showBackupEmptyDialog()
+            noDataEvent.observe(viewLifecycleOwner, Observer { showBackupEmptyDialog() })
+
+            isBackupDone.observe(viewLifecycleOwner, Observer { isBackupDone ->
+                if (isBackupDone) {
+                    Toast.makeText(context!!, "Backup done", Toast.LENGTH_LONG).show()
                 } else {
-                    showBackupDialog()
+                    Toast.makeText(context!!, "Backup failed", Toast.LENGTH_LONG).show()
                 }
             })
-
-            loadAccountList()
         }
-
     }
 
     private fun setupRecyclerView() {
@@ -165,7 +163,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         (recyclerView.adapter as MainAdapter).items = list
     }
 
-    private fun askPermissionToBackup(){
+    private fun askPermissionToBackup() {
         val context = context!!
 
         val checkWritePermission = ContextCompat.checkSelfPermission(
@@ -189,15 +187,8 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         }
     }
 
-    private fun backup(){
+    private fun backup() {
         viewModel.handleBackupRequest()
-    }
-
-    private fun showBackupDialog() {
-        AlertDialogFragment.Builder(context!!)
-            .setTitle(R.string.dialog_warning)
-            .setPositiveButton(R.string.dialog_confirm)
-            .show(childFragmentManager, DIALOG_TAG_BACKUP)
     }
 
     private fun showBackupEmptyDialog() {
@@ -208,7 +199,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             .show(childFragmentManager, DIALOG_TAG_BACKUP_EMPTY)
     }
 
-    private fun showRequestWritePermissionRationale(){
+    private fun showRequestWritePermissionRationale() {
         AlertDialogFragment.Builder(context!!)
             .setTitle("Excuse Me")
             .setMessage("We need storage writing permission")
@@ -217,7 +208,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             .show(childFragmentManager, DIALOG_TAG_ASK_PERMISSION)
     }
 
-    private fun handleWritePermissionDenied(){
+    private fun handleWritePermissionDenied() {
         AlertDialogFragment.Builder(context!!)
             .setTitle("No Permission")
             .setMessage("You have to approve wirte permission in setting")
@@ -227,9 +218,9 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
 
     }
 
-    private fun jumpToSetting(){
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply{
-            setData(Uri.parse("package:com.beibeilab.keepin"))
+    private fun jumpToSetting() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.parse("package:com.beibeilab.keepin")
         }
 
         startActivity(intent)

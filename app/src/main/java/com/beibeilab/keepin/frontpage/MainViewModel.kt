@@ -1,10 +1,7 @@
 package com.beibeilab.keepin.frontpage
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.beibeilab.filekits.FileCore
 import com.beibeilab.filekits.FileOperator
 import com.beibeilab.keepin.database.AccountDatabase
@@ -12,6 +9,9 @@ import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.file.FileManager
 import com.beibeilab.keepin.util.SingleLiveEvent
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(
     fileCore: FileCore
@@ -21,7 +21,8 @@ class MainViewModel(
     private val fileOperator = FileOperator()
     private val fileManager = FileManager(fileCore, fileOperator)
 
-    val showDialog = SingleLiveEvent<Boolean>()
+    val noDataEvent = SingleLiveEvent<Void>()
+    val isBackupDone = SingleLiveEvent<Boolean>()
 
     private val accountListObservable = MutableLiveData<Void>()
     val accountList: LiveData<List<AccountEntity>>
@@ -37,20 +38,27 @@ class MainViewModel(
     }
 
     fun handleBackupRequest() {
-        showDialog.value = accountList.value.isNullOrEmpty().also { isDataEmpty ->
-            if (!isDataEmpty) {
-                getBackup()
+        viewModelScope.launch {
+            val accountList = accountList.value
+            if (accountList.isNullOrEmpty()) {
+                noDataEvent.call()
+            } else {
+                isBackupDone.value = backup(accountList)
             }
         }
     }
 
-    fun getBackup() {
-        accountList.value?.run {
-            val jsonString = Gson().toJson(this)
-            Log.d("badu", jsonString)
+    private suspend fun backup(accountList: List<AccountEntity>) =
+        withContext(Dispatchers.IO) {
+            try {
+                val jsonString = Gson().toJson(accountList)
+                Log.d("badu", jsonString)
 
-            fileManager.backup(jsonString)
+                fileManager.backup(jsonString)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return@withContext false
+            }
+            true
         }
-    }
-
 }
