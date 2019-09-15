@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beibeilab.filekits.FileCore
+import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.frontpage.MainViewModel
 
 class ViewModelFactory (
@@ -32,6 +33,7 @@ class ViewModelFactory (
     }
 
     private val fileCore: FileCore = FileCore(application)
+    private val accountDatabase: AccountDatabase = AccountDatabase.getInstance(application)
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -39,7 +41,7 @@ class ViewModelFactory (
             when {
 
                 isAssignableFrom(MainViewModel::class.java) ->
-                    MainViewModel(fileCore)
+                    MainViewModel(fileCore, accountDatabase)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

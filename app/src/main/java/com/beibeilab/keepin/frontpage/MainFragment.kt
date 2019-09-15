@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beibeilab.keepin.MainActivity
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.account.AccountFragment
-import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainViewModel2
 import com.beibeilab.keepin.extension.replaceFragment
@@ -46,9 +46,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel = obtainViewModel2(MainViewModel::class.java).apply {
-            accountDatabase = AccountDatabase.getInstance(context!!)
-        }
+        viewModel = obtainViewModel2(MainViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -172,6 +170,11 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                     Toast.makeText(context!!, "Backup failed", Toast.LENGTH_LONG).show()
                 }
             })
+
+            readBackupFailed.observe(viewLifecycleOwner, Observer {
+                Log.e("badu", "$it")
+                Toast.makeText(context!!, "Restore failed", Toast.LENGTH_LONG).show()
+            })
         }
     }
 
@@ -230,7 +233,6 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                 restore()
             }
             else -> {
-
                 //  ActivityCompat.shouldShowRequestPermissionRationale()
                 if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     showRequestReadPermissionRationale()
