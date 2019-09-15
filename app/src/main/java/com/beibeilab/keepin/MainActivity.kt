@@ -2,11 +2,10 @@ package com.beibeilab.keepin
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
 import com.beibeilab.keepin.compose.ComposeActivity
 import com.beibeilab.keepin.extension.setupFragment
 import com.beibeilab.keepin.frontpage.MainFragment
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(ComposeActivity.getIntent(this))
         }
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             setupFragment(R.id.fragment_content, MainFragment())
         }
     }
