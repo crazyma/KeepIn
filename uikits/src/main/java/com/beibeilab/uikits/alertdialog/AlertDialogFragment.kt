@@ -177,7 +177,7 @@ class AlertDialogFragment : DialogFragment() {
         callback = parentFragment as? Callback ?: context as? Callback
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?) = run {
+    override fun onCreateDialog(savedInstanceState: Bundle?): AlertDialog = run {
         val fragment = this@AlertDialogFragment
         AlertDialog.Builder(context!!).apply {
             setTitle(title)
