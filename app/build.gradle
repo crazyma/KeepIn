@@ -7,6 +7,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    signingConfigs {
+        KeepInSigning
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.beibeilab.keepin"
@@ -17,8 +22,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.KeepInSigning
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -60,4 +70,21 @@ dependencies {
     implementation project(path: ':colorpicker')
     implementation project(path: ':uikits')
     implementation project(path: ':filekits')
+}
+
+def keystoreFile = rootProject.file('keystore.properties')
+def props = new Properties()
+if (keystoreFile.canRead()) {
+    props.load(new FileInputStream(keystoreFile))
+
+    if (props != null) {
+        android.signingConfigs.KeepInSigning.storeFile file(props['KEYSTORE_FILE'])
+        android.signingConfigs.KeepInSigning.storePassword props['KEYSTORE_PASSWORD']
+        android.signingConfigs.KeepInSigning.keyAlias props['KEYSTORE_ALIAS']
+        android.signingConfigs.KeepInSigning.keyPassword props['KEYSTORE_ALIAS_PASSWORD']
+    } else {
+        println 'some entries in \'keystore.properties\' not found!'
+    }
+} else {
+    println '\'keystore.properties\' not found!'
 }
