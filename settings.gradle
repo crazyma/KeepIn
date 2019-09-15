@@ -1,1 +1,1 @@
-include ':app', ':colorpicker', ':uikits', ':filekits'
+include ':app', ':colorpicker', ':uikits', ':filekits', ':batukits'
