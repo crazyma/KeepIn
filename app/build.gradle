@@ -15,7 +15,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.beibeilab.keepin"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -70,6 +70,7 @@ dependencies {
     implementation project(path: ':colorpicker')
     implementation project(path: ':uikits')
     implementation project(path: ':filekits')
+    implementation project(path: ':batukits')
 }
 
 def keystoreFile = rootProject.file('keystore.properties')
