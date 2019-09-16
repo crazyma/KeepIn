@@ -295,8 +295,9 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
     }
 
     private fun jumpToSetting() {
+        val packageName = context!!.applicationContext.packageName
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            data = Uri.parse("package:com.beibeilab.keepin")
+            data = Uri.parse("package:$packageName")
         }
 
         startActivity(intent)
