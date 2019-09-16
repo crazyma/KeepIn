@@ -149,7 +149,6 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         }
     }
 
-
     override fun itemOnClicked(position: Int, account: AccountEntity) {
         (activity as MainActivity).replaceFragment(
             R.id.fragment_content,

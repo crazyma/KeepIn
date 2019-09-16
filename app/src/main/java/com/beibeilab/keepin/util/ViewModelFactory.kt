@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.beibeilab.batukits.EncryptKit
 import com.beibeilab.filekits.FileCore
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.frontpage.MainViewModel
@@ -32,6 +33,7 @@ class ViewModelFactory (
         }
     }
 
+    private val encryptKit = EncryptKit.Factory(application).create()
     private val fileCore: FileCore = FileCore(application)
     private val accountDatabase: AccountDatabase = AccountDatabase.getInstance(application)
 
@@ -41,7 +43,7 @@ class ViewModelFactory (
             when {
 
                 isAssignableFrom(MainViewModel::class.java) ->
-                    MainViewModel(fileCore, accountDatabase)
+                    MainViewModel(fileCore, accountDatabase, encryptKit)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

@@ -29,8 +29,22 @@ data class AccountEntity(
                 0, null, null, null, null, null
             )
 
+    constructor(serviceName: String, oauth: String, account: String, pwd1: String, color: Int,
+                userName: String?, email: String?, remark: String?):
+            this(
+                serviceName, oauth, account, pwd1, color,
+                0, null, null,userName, email, remark
+            )
+
 
     fun isLessInfo() =
         account.isEmpty() && userName.isNullOrEmpty() && pwd1.isEmpty() &&
                 email.isNullOrEmpty() && remark.isNullOrEmpty()
+
+    fun getBackupEntity(password: String): AccountEntity{
+        return AccountEntity(
+            serviceName, oauth, account, password, color,
+            userName, email,remark
+        )
+    }
 }

@@ -1,6 +1,7 @@
 package com.beibeilab.keepin.frontpage
 
 import androidx.lifecycle.*
+import com.beibeilab.batukits.EncryptKit
 import com.beibeilab.filekits.FileCore
 import com.beibeilab.filekits.FileOperator
 import com.beibeilab.keepin.database.AccountDatabase
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 
 class MainViewModel(
     fileCore: FileCore,
-    private val accountDatabase: AccountDatabase
+    private val accountDatabase: AccountDatabase,
+    private val encryptKit: EncryptKit
 ) : ViewModel() {
 
     private val fileOperator = FileOperator()
@@ -44,7 +46,8 @@ class MainViewModel(
             if (accountList.isNullOrEmpty()) {
                 noDataEvent.call()
             } else {
-                isBackupDone.value = backup(accountList)
+                val backupJsonString = transToJson(accountList)
+                isBackupDone.value = backup(backupJsonString)
             }
         }
     }
@@ -81,16 +84,36 @@ class MainViewModel(
             }
         }
 
-    private suspend fun backup(accountList: List<AccountEntity>) =
-        withContext(Dispatchers.IO) {
-            try {
-                val jsonString = Gson().toJson(accountList)
 
-                fileManager.backup(jsonString)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                return@withContext false
+    private suspend fun transToJson(accountList: List<AccountEntity>) =
+        withContext(Dispatchers.Default) {
+            accountList.map {
+
+                val decryptedPassword = if (!it.pwd2.isNullOrEmpty()) { // encrypted password exist
+                    encryptKit.runDecryption(it.pwd2!!)
+                } else {
+                    null
+                }
+
+                val finalPassword = if (decryptedPassword != null && it.pwd1.isEmpty()) {
+                    decryptedPassword
+                } else {
+                    it.pwd1
+                }
+
+                it.getBackupEntity(finalPassword)
+            }.let {
+                Gson().toJson(it)
             }
-            true
+        }!!
+
+    private suspend fun backup(jsonString: String) = withContext(Dispatchers.IO) {
+        try {
+            fileManager.backup(jsonString)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return@withContext false
         }
+        true
+    }
 }
