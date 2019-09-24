@@ -1,7 +1,6 @@
 package com.beibeilab.keepin.password
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.compose.ComposeViewModel
-import com.beibeilab.keepin.extension.obtainActivityViewModel
-import com.beibeilab.keepin.extension.obtainViewModel
+import com.beibeilab.keepin.extension.obtainActivityViewModel2
+import com.beibeilab.keepin.extension.obtainViewModel2
 import kotlinx.android.synthetic.main.fragment_password_generate.*
 
 class PasswordGenerateFragment : DialogFragment() {
@@ -39,11 +38,15 @@ class PasswordGenerateFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = obtainViewModel(PasswordViewModel::class.java)
-        activityViewModel = obtainActivityViewModel(ComposeViewModel::class.java)
+        viewModel = obtainViewModel2(PasswordViewModel::class.java)
+        activityViewModel = obtainActivityViewModel2(ComposeViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_password_generate, container, false)
     }
 
@@ -73,7 +76,8 @@ class PasswordGenerateFragment : DialogFragment() {
             viewModel.apply {
                 when (isNextStep.value) {
                     true -> {
-                        activityViewModel.generatedPassword.value = generatedPasswordTextView.text.toString()
+                        activityViewModel.generatedPassword.value =
+                            generatedPasswordTextView.text.toString()
                         dismiss()
                     }
                     else -> {
@@ -130,7 +134,13 @@ class PasswordGenerateFragment : DialogFragment() {
         val constraintLayout = confirmButton.parent as ConstraintLayout
         val constraintSet = ConstraintSet()
         constraintSet.clone(constraintLayout)
-        constraintSet.connect(confirmButton.id, ConstraintSet.TOP, R.id.refreshImageView, ConstraintSet.BOTTOM, 16)
+        constraintSet.connect(
+            confirmButton.id,
+            ConstraintSet.TOP,
+            R.id.refreshImageView,
+            ConstraintSet.BOTTOM,
+            16
+        )
         constraintSet.applyTo(constraintLayout)
     }
 }

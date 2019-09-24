@@ -2,26 +2,24 @@ package com.beibeilab.keepin.compose
 
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.core.content.ContextCompat
 import android.view.*
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.android.colorpicker.ColorPickerDialog
 import com.android.colorpicker.ColorPickerSwatch
 import com.beibeilab.keepin.R
-import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
-import com.beibeilab.keepin.extension.obtainActivityViewModel
+import com.beibeilab.keepin.extension.obtainActivityViewModel2
 import com.beibeilab.keepin.extension.parseText
 import com.beibeilab.keepin.password.PasswordGenerateFragment
 import com.beibeilab.keepin.util.Constants
 import com.beibeilab.keepin.util.Utils
 import kotlinx.android.synthetic.main.content_compose.*
 import kotlinx.android.synthetic.main.content_edit_attr.*
-import java.lang.RuntimeException
 
-open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPickerSwatch.OnColorSelectedListener {
+open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView,
+    ColorPickerSwatch.OnColorSelectedListener {
 
     protected lateinit var viewModel: ComposeViewModel
     private val dp = Resources.getSystem().displayMetrics.density
@@ -29,7 +27,8 @@ open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPi
     private val serviceButtonClickListener = View.OnClickListener {
         it!!.apply {
             googleImageView.isSelected = googleImageView == this && !googleImageView.isSelected
-            facebookImageView.isSelected = facebookImageView == this && !facebookImageView.isSelected
+            facebookImageView.isSelected =
+                facebookImageView == this && !facebookImageView.isSelected
             twitterImageView.isSelected = twitterImageView == this && !twitterImageView.isSelected
             githubImageView.isSelected = githubImageView == this && !githubImageView.isSelected
         }
@@ -39,12 +38,14 @@ open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPi
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel = obtainActivityViewModel(ComposeViewModel::class.java).apply {
-            accountDatabase = AccountDatabase.getInstance(context!!)
-        }
+        viewModel = obtainActivityViewModel2(ComposeViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_compose, container, false)
     }
 
@@ -116,7 +117,9 @@ open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPi
     protected open fun setupViewModel() {
         viewModel.apply {
             color.observe(viewLifecycleOwner, Observer { setupColorPickerButton(it) })
-            generatedPassword.observe(viewLifecycleOwner, Observer { passwordEditText.setText(it!!) })
+            generatedPassword.observe(
+                viewLifecycleOwner,
+                Observer { passwordEditText.setText(it!!) })
             insertDone.observe(viewLifecycleOwner, Observer { activity!!.finish() })
         }
 
