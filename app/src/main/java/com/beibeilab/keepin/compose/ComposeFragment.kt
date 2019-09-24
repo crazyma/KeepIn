@@ -15,6 +15,7 @@ import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainActivityViewModel
 import com.beibeilab.keepin.extension.parseText
 import com.beibeilab.keepin.password.PasswordGenerateFragment
+import com.beibeilab.keepin.util.Constants
 import com.beibeilab.keepin.util.Utils
 import kotlinx.android.synthetic.main.content_compose.*
 import kotlinx.android.synthetic.main.content_edit_attr.*
@@ -159,10 +160,10 @@ open class ComposeFragment : Fragment(), ComposeNavigator, IComposeView, ColorPi
     }
 
     protected fun getSelectedService() = when {
-        googleImageView.isSelected -> "google"
-        facebookImageView.isSelected -> "facebook"
-        twitterImageView.isSelected -> "twitter"
-        githubImageView.isSelected -> "github"
-        else -> ""
+        googleImageView.isSelected -> Constants.OAUTH_GOOGLE
+        facebookImageView.isSelected -> Constants.OAUTH_FACEBOOK
+        twitterImageView.isSelected -> Constants.OAUTH_TWITTER
+        githubImageView.isSelected -> Constants.OAUTH_GITHUB
+        else -> Constants.OAUTH_NONE
     }
 }
