@@ -203,9 +203,9 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         val executor = Executors.newSingleThreadExecutor()
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle(resources.getString(R.string.fingerprint_title))
-            .setSubtitle(resources.getString(R.string.fingerprint_subtitle))
-            .setNegativeButtonText(resources.getString(R.string.cancel))
+            .setTitle(resources.getString(R.string.biometric_title))
+            .setSubtitle(resources.getString(R.string.biometric_subtitle))
+            .setNegativeButtonText(resources.getString(R.string.action_use_pin_code))
             .build()
 
         val biometricPrompt = BiometricPrompt(activity!!, executor,
