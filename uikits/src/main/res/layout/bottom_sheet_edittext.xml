@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="?android:listDivider"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/closeButton"
+            style="?actionButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?android:textColorSecondary" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/submitButton"
+            style="?actionButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_send"
+            android:tint="?colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="12dp"
+            tools:text="title"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="phone"
+                tools:hint="hint"
+                android:imeOptions="actionSend"
+                android:inputType="phone"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/remindTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:textColor="?android:textColorHint"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            tools:text="@string/resend_validation_letter_remind" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
