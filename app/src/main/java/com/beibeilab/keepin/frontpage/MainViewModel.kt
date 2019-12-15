@@ -1,5 +1,7 @@
 package com.beibeilab.keepin.frontpage
 
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.lifecycle.*
 import com.beibeilab.batukits.EncryptKit
 import com.beibeilab.filekits.FileCore
@@ -8,6 +10,7 @@ import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.file.FileManager
 import com.beibeilab.keepin.util.SingleLiveEvent
+import com.beibeilab.keepin.util.pref.PreferenceConstants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +20,8 @@ import kotlinx.coroutines.withContext
 class MainViewModel(
     fileCore: FileCore,
     private val accountDatabase: AccountDatabase,
-    private val encryptKit: EncryptKit
+    private val encryptKit: EncryptKit,
+    private val defaultPrefs: SharedPreferences
 ) : ViewModel() {
 
     private val fileOperator = FileOperator()
@@ -26,6 +30,7 @@ class MainViewModel(
     val noDataEvent = SingleLiveEvent<Void>()
     val isBackupDone = SingleLiveEvent<Boolean>()
     val readBackupFailed = SingleLiveEvent<java.lang.Exception>()
+    val pinCodeMatched = SingleLiveEvent<Boolean>()
 
     private val accountListObservable = MutableLiveData<Void>()
     val accountList: LiveData<List<AccountEntity>>
@@ -64,6 +69,29 @@ class MainViewModel(
 
             } catch (e: Exception) {
                 readBackupFailed.value = e
+            }
+        }
+    }
+
+    fun savePinCode(pin: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val encryptedPin = encryptKit.runEncryption(pin)
+                defaultPrefs.edit(commit = true) {
+                    putString(PreferenceConstants.PIN_CODE, encryptedPin)
+                }
+            }
+        }
+    }
+
+    fun checkPinCode(pin: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val encryptedPin = encryptKit.runEncryption(pin)
+            val storencryptedPin =
+                defaultPrefs.getString(PreferenceConstants.PIN_CODE, "")
+
+            withContext(Dispatchers.Main) {
+                pinCodeMatched.value = encryptedPin.trim() == storencryptedPin?.trim()
             }
         }
     }

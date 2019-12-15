@@ -28,7 +28,7 @@ class EditTextBottomSheet : BottomSheetDialogFragment() {
     }
 
     interface Callback {
-        fun onBottomSheetCommitMessage(message: String)
+        fun onBottomSheetCommitMessage(tag: String?, message: String)
     }
 
     private val title: String
@@ -73,8 +73,9 @@ class EditTextBottomSheet : BottomSheetDialogFragment() {
         }
 
         submitButton.setOnClickListener {
-            editText.text?.toString()?.let{
-                callback?.onBottomSheetCommitMessage(it)
+            editText.text?.toString()?.let {
+                callback?.onBottomSheetCommitMessage(this@EditTextBottomSheet.tag, it)
+                dismiss()
             }
         }
     }

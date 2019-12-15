@@ -31,7 +31,10 @@ import java.util.concurrent.Executors
 /**
  * A placeholder fragment containing a simple view.
  */
-class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFragment.Callback {
+class MainFragment : Fragment(),
+    MainAdapter.OnItemClickListener,
+    AlertDialogFragment.Callback,
+    EditTextBottomSheet.Callback {
 
     companion object {
 
@@ -44,6 +47,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         private const val DIALOG_TAG_ASK_TO_SETTING = "DIALOG_TAG_ASK_TO_SETTING"
 
         private const val BOTTOM_SHEET_PIN_CODE = "BOTTOM_SHEET_PIN_CODE"
+        private const val BOTTOM_SHEET_PIN_CODE_SETTING = "BOTTOM_SHEET_PIN_CODE_SETTING"
     }
 
     private lateinit var viewModel: MainViewModel
@@ -91,6 +95,11 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
 
         R.id.action_restore -> {
             askPermissionToRestore()
+            true
+        }
+
+        R.id.action_pin_code -> {
+            showPinCodeSettingBottomSheet()
             true
         }
 
@@ -165,6 +174,18 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         showBiometricPromt()
     }
 
+    override fun onBottomSheetCommitMessage(tag: String?, message: String) {
+        when (tag) {
+            BOTTOM_SHEET_PIN_CODE -> {
+                viewModel.checkPinCode(message)
+            }
+
+            BOTTOM_SHEET_PIN_CODE_SETTING -> {
+                viewModel.savePinCode(message)
+            }
+        }
+    }
+
     private fun setupViewModel() {
         viewModel.apply {
             accountList.observe(viewLifecycleOwner, Observer { populateList(it) })
@@ -180,8 +201,11 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             })
 
             readBackupFailed.observe(viewLifecycleOwner, Observer {
-                Log.e("badu", "$it")
                 Toast.makeText(context!!, "Restore failed", Toast.LENGTH_LONG).show()
+            })
+
+            pinCodeMatched.observe(viewLifecycleOwner, Observer { matched ->
+                if (matched) jumpt2AccountFragment()
             })
         }
     }
@@ -376,6 +400,16 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         }
 
         startActivity(intent)
+    }
+
+    private fun showPinCodeSettingBottomSheet() {
+        val res = context!!.resources
+        EditTextBottomSheet
+            .newInstance(
+                res.getString(R.string.bottom_sheet_pin_setting_code_title),
+                res.getString(R.string.bottom_sheet_pin_setting_code_message)
+            )
+            .show(childFragmentManager, BOTTOM_SHEET_PIN_CODE_SETTING)
     }
 
     private fun showPinCodeBottomSheet() {
