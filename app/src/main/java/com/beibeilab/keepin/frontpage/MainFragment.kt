@@ -312,7 +312,10 @@ class MainFragment : Fragment(),
                 if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     showRequestWritePermissionRationale()
                 } else {
-                    handleWritePermissionDenied()
+                    requestPermissions(
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        PERMISSION_REQUEST_CODE_WRITE_PERMISSION
+                    )
                 }
             }
         }
@@ -335,7 +338,10 @@ class MainFragment : Fragment(),
                 if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     showRequestReadPermissionRationale()
                 } else {
-                    handleReadPermissionDenied()
+                    requestPermissions(
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        PERMISSION_REQUEST_CODE_READ_PERMISSION
+                    )
                 }
             }
         }

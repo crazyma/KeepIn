@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beibeilab.batukits.EncryptKit
 import com.beibeilab.filekits.FileCore
+import com.beibeilab.keepin.compose.ComposeViewModel
 import com.beibeilab.keepin.database.AccountDatabase
 import com.beibeilab.keepin.frontpage.MainViewModel
+import com.beibeilab.keepin.password.PasswordViewModel
 import com.beibeilab.keepin.util.pref.PrefUtils
 
 class ViewModelFactory(
@@ -48,6 +50,12 @@ class ViewModelFactory(
 
                 isAssignableFrom(MainViewModel::class.java) ->
                     MainViewModel(fileCore, accountDatabase, encryptKit, defaultPrefs)
+
+                isAssignableFrom(ComposeViewModel::class.java) ->
+                    ComposeViewModel(encryptKit, accountDatabase)
+
+                isAssignableFrom(PasswordViewModel::class.java) ->
+                    PasswordViewModel()
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

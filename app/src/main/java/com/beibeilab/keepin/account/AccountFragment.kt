@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.beibeilab.batukits.EncryptKit
 import com.beibeilab.keepin.MainActivity
 import com.beibeilab.keepin.R
 import com.beibeilab.keepin.compose.ComposeActivity
@@ -37,7 +38,11 @@ class AccountFragment : Fragment(), AccountNavigator {
         accountEntity = arguments!!.getParcelable(ARGS_ACCOUNT)!!
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
@@ -109,17 +114,19 @@ class AccountFragment : Fragment(), AccountNavigator {
                 userNameTextView.text = userName
             }
 
-            if (pwd1.isEmpty()) {
+            if (pwd2.isNullOrEmpty()) {
                 passwordTextView.visibility = View.GONE
                 passwordTitleTextView.visibility = View.GONE
                 passwordImageView.visibility = View.GONE
                 passwordButton.visibility = View.GONE
             } else {
+                val encryptKit = EncryptKit.Factory(context!!.applicationContext).create()
+
                 passwordTextView.visibility = View.VISIBLE
                 passwordTitleTextView.visibility = View.VISIBLE
                 passwordImageView.visibility = View.VISIBLE
                 passwordButton.visibility = View.VISIBLE
-                passwordTextView.text = userName
+                passwordTextView.text = encryptKit.runDecryption(pwd2!!)
                 passwordButton.setText(R.string.btn_copy_password)
                 passwordButton.setOnClickListener { onCopyButtonClicked() }
             }
@@ -147,10 +154,6 @@ class AccountFragment : Fragment(), AccountNavigator {
             }
 
             serviceNameTextView.text = serviceName
-            userNameTextView.text = userName
-            passwordTextView.text = pwd1
-            emailTextView.text = email
-            remarkTextView.text = remark
 
             oauthImageView.setImageResource(
                 when (oauth) {
@@ -165,7 +168,8 @@ class AccountFragment : Fragment(), AccountNavigator {
     }
 
     private fun copyToClipboard(str: String) {
-        val clipboard = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        val clipboard =
+            context!!.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
         val clip = android.content.ClipData.newPlainText("text label", str)
         clipboard.primaryClip = clip
 

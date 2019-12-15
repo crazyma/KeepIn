@@ -108,6 +108,9 @@ class MainViewModel(
     private suspend fun storeToDatabase(accounts: List<AccountEntity>) =
         withContext(Dispatchers.IO) {
             accounts.forEach {
+                it.pwd2 = encryptKit.runEncryption(it.pwd1)
+                it.pwd1 = ""
+
                 accountDatabase.getAccountDao().insert(it)
             }
         }
