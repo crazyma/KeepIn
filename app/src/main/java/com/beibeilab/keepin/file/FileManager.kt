@@ -34,7 +34,7 @@ class FileManager(
     }
 
     private fun getBackupDir(): File {
-        return fileCore.getPublicExternalDir(Environment.DIRECTORY_DOWNLOADS, DIR_APP_FOLDER)
+        return fileCore.getPublicExternalDir(Environment.DIRECTORY_DOWNLOADS)
             .apply { if (!exists()) mkdir() }
     }
 }
