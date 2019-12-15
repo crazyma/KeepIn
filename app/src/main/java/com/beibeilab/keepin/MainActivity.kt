@@ -1,6 +1,5 @@
 package com.beibeilab.keepin
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.beibeilab.keepin.compose.ComposeActivity
@@ -15,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { _ ->
+        fab.setOnClickListener {
             startActivity(ComposeActivity.getIntent(this))
         }
 
@@ -24,10 +23,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
     fun showFAB() {
         fab.show()

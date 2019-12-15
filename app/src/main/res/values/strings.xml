@@ -15,7 +15,7 @@
     <string name="generate_other">!@#$%^*()_</string>
     <string name="generate">GENERATE</string>
     <string name="generate_title">密碼產生器</string>
-    <string name="generate_title_2">確認使用密碼</string>f
+    <string name="generate_title_2">確認使用密碼</string>
     <string name="confirm">CONFIRM</string>
     <string name="cancel">CANCEL</string>
 
@@ -39,6 +39,9 @@
     <string name="dialog_warning">提醒</string>
     <string name="dialog_backup_empty_message">沒有資料可備份</string>
     <string name="dialog_confirm">知道了</string>
+
+    <string name="bottom_sheet_pin_code_title">Pin Code</string>
+    <string name="bottom_sheet_pin_code_message">輸入你的 Pin Code</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

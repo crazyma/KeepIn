@@ -21,7 +21,10 @@ import com.beibeilab.keepin.account.AccountFragment
 import com.beibeilab.keepin.database.AccountEntity
 import com.beibeilab.keepin.extension.obtainViewModel2
 import com.beibeilab.keepin.extension.replaceFragment
+import com.beibeilab.keepin.util.pref.PrefUtils
+import com.beibeilab.keepin.util.pref.PreferenceConstants
 import com.beibeilab.uikits.alertdialog.AlertDialogFragment
+import com.beibeilab.uikits.bottomsheet.EditTextBottomSheet
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.concurrent.Executors
 
@@ -39,6 +42,8 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         private const val DIALOG_TAG_ASK_WRITE_PERMISSION = "DIALOG_TAG_ASK_WRITE_PERMISSION"
         private const val DIALOG_TAG_ASK_READ_PERMISSION = "DIALOG_TAG_ASK_READ_PERMISSION"
         private const val DIALOG_TAG_ASK_TO_SETTING = "DIALOG_TAG_ASK_TO_SETTING"
+
+        private const val BOTTOM_SHEET_PIN_CODE = "BOTTOM_SHEET_PIN_CODE"
     }
 
     private lateinit var viewModel: MainViewModel
@@ -227,10 +232,26 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                     super.onAuthenticationError(errorCode, errString)
                     when (errorCode) {
                         BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
-                            Log.d("badu", "cancel clicked")
+                            val pinCodeExist =
+                                PrefUtils.getDefaultPrefs(context!!)
+                                    .contains(PreferenceConstants.PIN_CODE)
+
+                            activity!!.runOnUiThread {
+                                if (pinCodeExist) {
+                                    showPinCodeBottomSheet()
+                                } else {
+                                    Toast.makeText(
+                                        context!!,
+                                        "you have no pic code set",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
                         }
                         BiometricPrompt.ERROR_NO_BIOMETRICS -> {
-                            Toast.makeText(context!!, "no biometrics", Toast.LENGTH_LONG).show()
+                            activity!!.runOnUiThread {
+                                Toast.makeText(context!!, "no biometrics", Toast.LENGTH_LONG).show()
+                            }
                         }
                         else -> {
                             Log.e("badu", "error: $errorCode")
@@ -355,5 +376,15 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         }
 
         startActivity(intent)
+    }
+
+    private fun showPinCodeBottomSheet() {
+        val res = context!!.resources
+        EditTextBottomSheet
+            .newInstance(
+                res.getString(R.string.bottom_sheet_pin_code_title),
+                res.getString(R.string.bottom_sheet_pin_code_message)
+            )
+            .show(childFragmentManager, BOTTOM_SHEET_PIN_CODE)
     }
 }
