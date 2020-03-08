@@ -19,6 +19,6 @@ fun <T : ViewModel> Fragment.obtainViewModel2(viewModelClass: Class<T>): T =
     )
 
 fun <T : ViewModel> Fragment.obtainActivityViewModel2(viewModelClass: Class<T>) =
-    ViewModelProviders.of(this, ViewModelFactory.getInstance(activity!!.application)).get(
+    ViewModelProviders.of(activity as FragmentActivity, ViewModelFactory.getInstance(activity!!.application)).get(
         viewModelClass
     )
