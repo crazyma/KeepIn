@@ -70,7 +70,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         (activity as MainActivity).showFAB()
 
         viewModel.loadAccountList(
-            searchEditText.text.toString().trim()
+            searchTextField.editText?.text.toString().trim()
         )
     }
 
@@ -184,7 +184,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
     }
 
     private fun setupViews() {
-        searchEditText.addTextChangedListener(object : TextWatcher {
+        searchTextField.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }

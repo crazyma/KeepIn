@@ -7,16 +7,26 @@
     tools:context=".frontpage.MainFragment"
     tools:showIn="@layout/activity_main">
 
-    <EditText
-        android:id="@+id/searchEditText"
+    <!--
+        如果要套 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        那 AppTheme parent 要換成 Theme.MaterialComponents.Light.DarkActionBar
+    -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchTextField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:hint="@string/hint_search"
-        android:importantForAutofill="no"
-        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/personaIdEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -25,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+        app:layout_constraintTop_toBottomOf="@+id/searchTextField"
         tools:listitem="@layout/item_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
