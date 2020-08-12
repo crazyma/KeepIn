@@ -28,6 +28,12 @@ interface AccountDao {
     @Query("SELECT * FROM accountEntity ORDER BY service_name ASC")
     fun getAllFromLiveData(): LiveData<List<AccountEntity>>
 
+    @Query("SELECT * FROM accountEntity ORDER BY service_name ASC")
+    fun getAllFromLegacy(): List<AccountEntity>
+
+    @Query("SELECT * FROM accountEntity WHERE service_name LIKE '%' || :searchKey  || '%' ORDER BY service_name ASC")
+    fun searchEntityFromLegacy(searchKey: String): List<AccountEntity>
+
     @Query("SELECT * FROM accountEntity WHERE uid == :uid")
     fun getAccountEntityByUidRx(uid: Long): Flowable<AccountEntity>
 

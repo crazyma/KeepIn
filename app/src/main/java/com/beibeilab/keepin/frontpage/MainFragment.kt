@@ -63,12 +63,15 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         setupRecyclerView()
         setupViewModel()
         setupViews()
-        viewModel.loadAccountList()
     }
 
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).showFAB()
+
+        viewModel.loadAccountList(
+            searchEditText.text.toString().trim()
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -180,8 +183,8 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         }
     }
 
-    private fun setupViews(){
-        searchEditText.addTextChangedListener(object: TextWatcher{
+    private fun setupViews() {
+        searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -191,7 +194,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d("badu", "s: $s")
+                viewModel.loadAccountList(s?.toString())
             }
         })
     }

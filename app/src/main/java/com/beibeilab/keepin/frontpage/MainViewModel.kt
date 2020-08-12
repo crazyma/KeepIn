@@ -1,6 +1,8 @@
 package com.beibeilab.keepin.frontpage
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.beibeilab.batukits.EncryptKit
 import com.beibeilab.filekits.FileCore
 import com.beibeilab.filekits.FileOperator
@@ -27,17 +29,12 @@ class MainViewModel(
     val isBackupDone = SingleLiveEvent<Boolean>()
     val readBackupFailed = SingleLiveEvent<java.lang.Exception>()
 
-    private val accountListObservable = MutableLiveData<Void>()
-    val accountList: LiveData<List<AccountEntity>>
+    val accountList = MutableLiveData<List<AccountEntity>>()
 
-    init {
-        accountList = Transformations.switchMap(accountListObservable) {
-            accountDatabase.getAccountDao().getAllFromLiveData()
+    fun loadAccountList(searchKey: String? = null) {
+        viewModelScope.launch {
+            accountList.value = suspendLoadAccountList(searchKey)
         }
-    }
-
-    fun loadAccountList() {
-        accountListObservable.value = null
     }
 
     fun handleBackupRequest() {
@@ -65,6 +62,14 @@ class MainViewModel(
             } catch (e: Exception) {
                 readBackupFailed.value = e
             }
+        }
+    }
+
+    private suspend fun suspendLoadAccountList(searchKey: String?) = withContext(Dispatchers.IO) {
+        if (searchKey.isNullOrEmpty()) {
+            accountDatabase.getAccountDao().getAllFromLegacy()
+        } else {
+            accountDatabase.getAccountDao().searchEntityFromLegacy(searchKey)
         }
     }
 
