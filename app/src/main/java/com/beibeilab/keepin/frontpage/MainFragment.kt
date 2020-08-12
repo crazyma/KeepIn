@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -74,12 +76,16 @@ class MainFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupViewModel()
-        viewModel.loadAccountList()
+        setupViews()
     }
 
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).showFAB()
+
+        viewModel.loadAccountList(
+            searchTextField.editText?.text.toString().trim()
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -208,6 +214,22 @@ class MainFragment : Fragment(),
                 if (matched) jumpt2AccountFragment()
             })
         }
+    }
+
+    private fun setupViews() {
+        searchTextField.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.loadAccountList(s?.toString())
+            }
+        })
     }
 
     private fun setupRecyclerView() {
