@@ -8,6 +8,7 @@
     <string name="hint_user_name">User Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_remark">Remark</string>
+    <string name="hint_search">Service Name</string>
 
     <string name="generate_uppercase">大寫字母 A - Z</string>
     <string name="generate_lowercase">小寫字母 a - z</string>

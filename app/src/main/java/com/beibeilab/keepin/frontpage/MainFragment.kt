@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -60,6 +62,7 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupViewModel()
+        setupViews()
         viewModel.loadAccountList()
     }
 
@@ -175,6 +178,22 @@ class MainFragment : Fragment(), MainAdapter.OnItemClickListener, AlertDialogFra
                 Toast.makeText(context!!, "Restore failed", Toast.LENGTH_LONG).show()
             })
         }
+    }
+
+    private fun setupViews(){
+        searchEditText.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d("badu", "s: $s")
+            }
+        })
     }
 
     private fun setupRecyclerView() {
